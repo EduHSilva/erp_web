@@ -50,6 +50,18 @@ class AdminUsersControllerTest {
     private AuthenticationManager authenticationManager;
 
     @Test
+    void testNotFoundUser() throws Exception {
+        UUID userId = UUID.randomUUID();
+
+        Mockito.when(adminUsersService.deleteUser(userId)).thenReturn(false);
+
+        mockMvc.perform(delete("/admin/user/{id}", userId))
+                .andExpect(status().isNotFound());
+
+        Mockito.verify(adminUsersService, Mockito.times(1)).deleteUser(userId);
+    }
+
+    @Test
     @WithMockUser(username = "testuser", roles = "ADMIN")
     void testGetUserById() throws Exception {
         UUID userId = UUID.randomUUID();

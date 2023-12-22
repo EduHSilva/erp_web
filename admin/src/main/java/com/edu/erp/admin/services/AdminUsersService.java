@@ -37,6 +37,7 @@ public class AdminUsersService {
     public List<AdminUsers> findAll() {
         return adminUsersRepository.findAll();
     }
+
     public Optional<AdminUsers> findById(UUID id) {
         return adminUsersRepository.findById(id);
     }

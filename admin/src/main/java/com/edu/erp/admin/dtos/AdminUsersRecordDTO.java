@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
 
@@ -16,9 +18,9 @@ public record AdminUsersRecordDTO(
         @NotBlank String name,
         @NotBlank @Email String email,
 
-        @NotBlank String cpf,
+        @NotBlank @CPF String cpf,
 
-        @NotNull  Language language,
+        @NotNull Language language,
 
         @NotNull Status status,
 
@@ -28,8 +30,8 @@ public record AdminUsersRecordDTO(
 
         @NotNull boolean admin,
 
-        @NotBlank String password,
+        @NotBlank @Length(min = 8) String password,
 
         String phone
-        ) {
+) {
 }
