@@ -21,8 +21,8 @@ public class AdminUsersService {
         this.adminUsersRepository = adminUsersRepository;
     }
 
-    @Transactional
-    public AdminUsers saveUser(AdminUsers userModel) {
+
+    public AdminUsers save(AdminUsers userModel) {
         if(adminUsersRepository.findByEmail(userModel.getEmail()) == null) {
             BCryptPasswordEncoder cripto = new BCryptPasswordEncoder();
 
@@ -35,7 +35,7 @@ public class AdminUsersService {
 
 
     public List<AdminUsers> findAll() {
-        return adminUsersRepository.findAll();
+        return adminUsersRepository.findByDateDeletionIsNull();
     }
 
     public Optional<AdminUsers> findById(UUID id) {
@@ -43,7 +43,7 @@ public class AdminUsersService {
     }
 
     @Transactional
-    public boolean deleteUser(UUID id) {
+    public boolean delete(UUID id) {
         if (adminUsersRepository.existsById(id)) {
             Optional<AdminUsers> user = adminUsersRepository.findById(id);
             if (user.isPresent()) {
@@ -56,12 +56,12 @@ public class AdminUsersService {
     }
 
     @Transactional
-    public AdminUsers updateUser(UUID id, AdminUsersRecordDTO dto) {
+    public AdminUsers update(UUID id, AdminUsersRecordDTO dto) {
         if (adminUsersRepository.existsById(id)) {
             Optional<AdminUsers> user = adminUsersRepository.findById(id);
             if (user.isPresent()) {
                 AdminUsers adminUsers = user.get();
-                BeanUtils.copyProperties(adminUsers, dto);
+                BeanUtils.copyProperties(dto, adminUsers);
                 adminUsersRepository.save(user.get());
                 return adminUsers;
             }

@@ -2,6 +2,7 @@ package com.edu.erp.admin.dtos;
 
 import com.edu.erp.admin.enums.Language;
 import com.edu.erp.admin.enums.Status;
+import com.edu.erp.admin.models.AdminProfileAccess;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,8 @@ public record AdminUsersRecordDTO(
 
         @NotBlank @Length(min = 8) String password,
 
-        String phone
+        String phone,
+
+        AdminProfileAccess profile
 ) {
 }

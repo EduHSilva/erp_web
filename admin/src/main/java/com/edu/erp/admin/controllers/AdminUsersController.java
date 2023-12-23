@@ -18,17 +18,17 @@ import java.util.UUID;
 @RequestMapping("/admin")
 public class AdminUsersController {
 
-    private final AdminUsersService adminUsersService;
+    private final AdminUsersService service;
 
     public AdminUsersController(AdminUsersService adminUsersService) {
-        this.adminUsersService = adminUsersService;
+        this.service = adminUsersService;
     }
 
     @PostMapping("/users")
-    public ResponseEntity<AdminUsers> saveUser(@RequestBody @Valid AdminUsersRecordDTO userRecordDTO) {
+    public ResponseEntity<AdminUsers> save(@RequestBody @Valid AdminUsersRecordDTO userRecordDTO) {
         AdminUsers userModel = new AdminUsers();
         BeanUtils.copyProperties(userRecordDTO, userModel);
-        AdminUsers user = adminUsersService.saveUser(userModel);
+        AdminUsers user = service.save(userModel);
 
         return (user != null) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(user) :
@@ -36,27 +36,27 @@ public class AdminUsersController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<AdminUsers>> getUsers() {
-        List<AdminUsers> users = adminUsersService.findAll();
+    public ResponseEntity<List<AdminUsers>> get() {
+        List<AdminUsers> users = service.findAll();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<AdminUsers> getUserById(@PathVariable UUID id) {
-        Optional<AdminUsers> user = adminUsersService.findById(id);
+    public ResponseEntity<AdminUsers> getById(@PathVariable UUID id) {
+        Optional<AdminUsers> user = service.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
-        return adminUsersService.deleteUser(id) ?
+    public ResponseEntity<String> delete(@PathVariable UUID id) {
+        return service.delete(id) ?
                 ResponseEntity.ok("Deleted") :
                 ResponseEntity.notFound().build();
     }
 
     @PutMapping("/user/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable UUID id, @RequestBody @Valid AdminUsersRecordDTO dto) {
-        AdminUsers user = adminUsersService.updateUser(id, dto);
+    public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody @Valid AdminUsersRecordDTO dto) {
+        AdminUsers user = service.update(id, dto);
         return (user != null) ?
                 ResponseEntity.ok(user) :
                 ResponseEntity.notFound().build();

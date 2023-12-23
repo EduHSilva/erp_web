@@ -1,7 +1,9 @@
 package com.edu.erp.admin.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "admin_modules")
 public class AdminModules implements Serializable {
     @Id
@@ -23,8 +27,4 @@ public class AdminModules implements Serializable {
     private Date dateCreated;
 
     private Date dateDeletion;
-
-    @ManyToMany
-    @JoinTable(name = "admin_profile_access_modules")
-    private List<AdminProfileAccess> profileAccessList;
 }

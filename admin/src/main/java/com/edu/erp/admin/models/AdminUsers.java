@@ -52,6 +52,9 @@ public class AdminUsers implements Serializable, UserDetails {
 
     private String phone;
 
+    @ManyToOne
+    private AdminProfileAccess profile;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.admin) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
