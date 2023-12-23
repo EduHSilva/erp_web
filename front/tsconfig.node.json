@@ -8,10 +8,10 @@
     "playwright.config.*"
   ],
   "compilerOptions": {
-    "composite": true,
     "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"]
+    "types": ["node"],
+    "verbatimModuleSyntax": true
   }
 }
