@@ -1,0 +1,19 @@
+{
+  "administration": "Administração",
+  "profileAccess": "Perfis de acesso",
+  "modules": "Módulos",
+  "users": "Usuários",
+  "userInfo": "Informações dos Usuários",
+  "add": "Adicionar",
+  "name": "Nome",
+  "email": "E-mail",
+  "status": "Status",
+  "dateCreated": "Data de Criação",
+  "home": "Página Inicial",
+  "admin": "Administrador",
+  "welcome": "Bem vindo",
+  "profile": "Perfil",
+  "active": "Ativo",
+  "edit": "Editar",
+  "list": "Listagem"
+}

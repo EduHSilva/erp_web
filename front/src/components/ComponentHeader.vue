@@ -1,81 +1,119 @@
-<script setup lang="ts">
+<script lang="ts">
+import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+import type User from "@/store/types/user";
 
+export default {
+  components: {ComponentSidebarInner},
+  props: {
+    inner: {
+      type: Boolean,
+      default: false
+    },
+    text: {
+      type: Array as () => String[],
+      required: false,
+    }
+  },
+}
 </script>
 
 <template>
-  <header>
-    <div class="ABC-logo">
+  <header :class="{inner: inner}">
+    <div class="logo">
       <div class="a-wrapper">
         <div class="a">A</div>
       </div>
-      <div class="group">
+      <div class="group" :class="{'d-none': inner}">
         <div class="text-wrapper">ABC</div>
+      </div>
+    </div>
+    <div v-if="inner" class="fw-bold d-flex align-items-md-center h-100">
+      <div v-for="t in text" class="d-flex align-items-md-center justify-content-center fw-bold">
+        <span class="header-separator">&nbsp</span>
+        {{$t(t.toString())}}
       </div>
     </div>
   </header>
 </template>
 
-<style scoped>
+<style>
 header {
   background-color: #ffffff;
-  border-bottom-style: solid;
-  border-bottom-width: 0.5px;
-  border-color: #00000033;
   height: 10vh;
-}
-
-header .ABC-logo {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #00000033;
+  display: flex;
   align-items: center;
-  display: inline-flex;
-  gap: 8px;
-  left: 56px;
-  position: relative;
-  top: 35px;
+  padding-left: 50px;
+  width: 100vw;
+  margin-bottom: 50px;
 }
 
-header .a-wrapper {
+.inner {
+  display: flex;
+  width: 80vw !important;
+  float: right;
+  color: var(--primary-color);
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+
+
+.header-separator {
+  background-image: url("../assets/headerSeparator.svg");
+  width: 30px;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+.logo {
+  display: flex;
+  width: 30px;
+  height: 25px;
+}
+
+.logo .a-wrapper {
   align-items: flex-start;
-  background-color: #1d0202;
-  border-radius: 1.58px;
-  display: inline-flex;
+  background-color: var(--primary-color);
+  border-radius: 2px;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 6.3px;
-  padding: 7.88px;
+  gap: 6px;
+  padding: 7px;
   position: relative;
 }
 
-header .a {
+.logo .a {
   color: #ffffff;
-  font-family: "Poppins", Helvetica,serif;
-  font-size: 14.2px;
+  font-family: "Poppins", Helvetica, serif;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.57px;
-  line-height: 12.6px;
+  letter-spacing: 1px;
+  line-height: 13px;
   margin-top: -0.79px;
   position: relative;
   white-space: nowrap;
   width: fit-content;
 }
 
-header .group {
+.logo .group {
   height: 24px;
   margin-right: -2px;
   position: relative;
   width: 37px;
 }
 
-header .text-wrapper {
-  color: var(--lightgrayscale-100);
-  font-family: var(--body-1-bold-font-family);
-  font-size: var(--body-1-bold-font-size);
-  font-style: var(--body-1-bold-font-style);
-  font-weight: var(--body-1-bold-font-weight);
-  left: 0;
-  letter-spacing: var(--body-1-bold-letter-spacing);
-  line-height: var(--body-1-bold-line-height);
-  position: absolute;
-  top: 0;
+.logo .text-wrapper {
+  color: var(--primary-color);
+  font-family: var(--bold-font-family);
+  font-size: var(--bold-font-size);
+  font-weight: var(--bold-font-weight);
+  letter-spacing: var(--bold-letter-spacing);
+  line-height: var(--bold-line-height);
   white-space: nowrap;
+  padding-left: 20px;
 }
 </style>

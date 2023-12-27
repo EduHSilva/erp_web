@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import type User from "../types/user"
 import axios from "axios";
-
+import .meta.env.__APP_ENV__
 interface State {
     userList: User[]
 }
@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         getUsers() {
-            axios("http://localhost:8080/admin/users").then(e => {
+            axios(`${import.meta.env.VITE_ADMIN_URL}admin/users`).then(e => {
                 console.log(e.data)
                 this.userList = e.data
             })

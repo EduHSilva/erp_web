@@ -1,5 +1,25 @@
-<script setup lang="ts">
+<script lang="ts">
+  import ComponentSidebarLinks from "@/components/sidebar/ComponentSidebarLinks.vue";
 
+  export default {
+    components: {ComponentSidebarLinks},
+    data() {
+        return {
+          modules: [
+            {
+              img: "/icons/home.svg",
+              description: this.$t("home"),
+              link: "/"
+            },
+            {
+              img: "/icons/admin.svg",
+              description: this.$t("admin"),
+              link: "/admin"
+            }
+          ]
+        }
+    },
+  }
 </script>
 
 <template>
@@ -14,23 +34,10 @@
           />
         </div>
         <p class="text-black fs-5 fw-semibold font-family-Poppins col-10 m-0 px-3 py-2">
-          Bem vindo Eduardo
+          {{ $t("welcome") }}
         </p>
       </div>
-      <div class="py-1 col-12 row">
-        <div class="px-1 py-1 bg-light rounded-3 col-12 justify-content-center d-flex">
-          <div class="col-9 row justify-content-center align-items-center">
-            <div class="col-2 d-flex">
-            </div>
-            <div class="px-0.5 col-12 d-flex">
-              <img class="img" alt="Fluent" src="../assets/icons/person.svg"/>
-              <p class="text-black fs-6 fw-medium font-family-Poppins text-capitalize col-12 m-0 px-3 py-2">
-                Users
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ComponentSidebarLinks :links="modules" />
     </div>
   </div>
 </template>
@@ -41,10 +48,7 @@
   width: 300px;
 }
 
-img {
-  width: 25px;
-  height: auto;
-}
+
 
 p {
   padding: 10px 25px !important
