@@ -75,7 +75,7 @@ class AdminModulesControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(adminModules)))
                 .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$.id").value(adminModules.getId().toString()))
                 .andExpect(jsonPath("$.name").value("ADMIN"));
 
@@ -93,7 +93,7 @@ class AdminModulesControllerTest {
 
         mockMvc.perform(get("/admin/module/{id}", id))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$.id").value(adminModules.getId().toString()))
                 .andExpect(jsonPath("$.name").value("ADMIN"));
 
@@ -123,7 +123,7 @@ class AdminModulesControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(adminModules)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType("application/hal+json"))
                 .andExpect(jsonPath("$.id").value(adminModules.getId().toString()))
                 .andExpect(jsonPath("$.name").value("ADMIN UPDATED"));
 

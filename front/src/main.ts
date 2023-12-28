@@ -4,7 +4,7 @@ import {createI18n} from "vue-i18n";
 import App from './App.vue';
 import router from './router';
 import 'bootstrap/scss/bootstrap.scss';
-import 'bootstrap/js/src/modal.js'
+import 'bootstrap/js/index.esm.js'
 import './assets/main.css';
 import enUS from './translations/en.json';
 import ptBr from './translations/pt.json';

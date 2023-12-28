@@ -54,6 +54,14 @@ a {
     align-items: center;
 }
 
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    border: 1px solid black;
+    color: #111111;
+
+}
+
 h4 {
     color: #969696;
     font-family: Poppins, serif;
@@ -73,3 +81,4 @@ main {
 body {
     background: rgba(0,0,0,.1);
 }
+

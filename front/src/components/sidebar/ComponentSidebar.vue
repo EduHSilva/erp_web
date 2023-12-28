@@ -8,12 +8,12 @@
           modules: [
             {
               img: "/icons/home.svg",
-              description: this.$t("home"),
+              description: "home",
               link: "/"
             },
             {
               img: "/icons/admin.svg",
-              description: this.$t("admin"),
+              description: "admin",
               link: "/admin"
             }
           ]

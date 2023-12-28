@@ -15,5 +15,16 @@
   "profile": "Profile",
   "active": "Active",
   "edit": "Edit",
-  "list": "List"
+  "list": "List",
+  "actions": "Actions",
+  "delete": "Delete",
+  "noData": "No data",
+  "newModule": "New Module",
+  "save": "Save",
+  "moduleSaveSuccess": "Module save successful",
+  "error": "An error has occurred",
+  "cancel": "Cancel",
+  "attention": "Attention",
+  "confirm": "Confirm",
+  "confirmDelete": "Proceed with the action? "
 }

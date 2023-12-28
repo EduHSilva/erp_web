@@ -1,14 +1,14 @@
 package com.edu.erp.admin.services;
 
 import com.edu.erp.admin.dtos.AdminModuleDTO;
-import com.edu.erp.admin.dtos.AdminUsersRecordDTO;
 import com.edu.erp.admin.models.AdminModules;
-import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.repositories.AdminModulesRepository;
-import com.edu.erp.admin.repositories.AdminUsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,11 +26,13 @@ public class AdminModulesService {
 
     @Transactional
     public AdminModules save(AdminModules adminModules) {
-       return repository.save(adminModules);
+        if (repository.findByNameAndDateDeletionIsNull(adminModules.getName()) == null)
+            return repository.save(adminModules);
+        else return null;
     }
 
-    public List<AdminModules> findAll() {
-        return repository.findAll();
+    public Page<AdminModules> findAll(Pageable pageable) {
+        return repository.findByDateDeletionIsNull(pageable);
     }
 
     public Optional<AdminModules> findById(UUID id) {
@@ -56,7 +58,7 @@ public class AdminModulesService {
             Optional<AdminModules> modules = repository.findById(id);
             if (modules.isPresent()) {
                 AdminModules module = modules.get();
-                BeanUtils.copyProperties(dto, module);
+                module.setName(dto.name());
                 repository.save(module);
                 return module;
             }

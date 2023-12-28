@@ -15,5 +15,16 @@
   "profile": "Perfil",
   "active": "Ativo",
   "edit": "Editar",
-  "list": "Listagem"
+  "list": "Listagem",
+  "actions": "Ações",
+  "delete": "Deletar",
+  "noData": "Sem dados",
+  "newModule": "Novo Módulo",
+  "save": "Salvar",
+  "moduleSaveSuccess": "Módulo salvo com sucesso",
+  "error": "Ocorreu um erro",
+  "attention": "Atenção",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "confirmDelete": "Prosseguir com a ação? "
 }

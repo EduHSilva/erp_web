@@ -1,4 +1,5 @@
 export default interface Module {
-    img: string
-    description: string
+    id: string,
+    name: string,
+    dateCreated: Date
 }

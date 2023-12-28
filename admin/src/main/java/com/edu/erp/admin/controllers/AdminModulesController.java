@@ -1,14 +1,13 @@
 package com.edu.erp.admin.controllers;
 
 import com.edu.erp.admin.dtos.AdminModuleDTO;
-import com.edu.erp.admin.dtos.AdminUsersRecordDTO;
 import com.edu.erp.admin.models.AdminModules;
-import com.edu.erp.admin.models.AdminProfileAccess;
-import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.services.AdminModulesService;
-import com.edu.erp.admin.services.AdminUsersService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @CrossOrigin("*")
@@ -39,8 +41,12 @@ public class AdminModulesController {
     }
 
     @GetMapping("/modules")
-    public ResponseEntity<List<AdminModules>> get() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    public ResponseEntity<Page<AdminModules>> get(Pageable pageable) {
+        Page<AdminModules> modulesList = service.findAll(pageable);
+        for(AdminModules module : modulesList) {
+            module.add(linkTo(methodOn(AdminModulesController.class).getById(module.getId())).withSelfRel());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(modulesList);
     }
 
     @GetMapping("/module/{id}")
