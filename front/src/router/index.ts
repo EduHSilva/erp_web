@@ -3,6 +3,7 @@ import UsersView from "@/views/UsersView.vue";
 import HomeView from "@/views/HomeView.vue";
 import AdminView from "@/views/AdminView.vue";
 import ModulesView from "@/views/ModulesView.vue";
+import ProfilesView from "@/views/ProfilesView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
             path: '/admin/modules',
             name: 'modules',
             component: ModulesView,
+        },
+        {
+            path: '/admin/profiles',
+            name: 'profiles',
+            component: ProfilesView,
         },
         {
             path: '/admin/users',

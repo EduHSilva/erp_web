@@ -8,7 +8,7 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 const store = useUserStore()
-store.getUsers()
+store.get(0)
 </script>
 
 <script lang="ts">
@@ -47,7 +47,7 @@ export default  {
         <ComponentTableUsers :users="store.userList"  />
       </div>
       <div class="card-footer">
-        <ComponentPagination />
+        <ComponentPagination :total-pages="store.totalPages" :page="store.page"/>
       </div>
     </div>
   </main>

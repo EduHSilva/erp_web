@@ -1,17 +1,17 @@
 import {defineStore} from "pinia";
-import type Module from "../types/module"
+import type Profile from "../types/profile"
 import axios from "axios";
 
 interface State {
-    modules: Module[],
+    profiles: Profile[],
     totalPages: number,
     page: number,
 }
 
-export const useModulesStore = defineStore('module', {
+export const useProfileStore = defineStore('profile', {
     state: (): State => {
         return {
-            modules: [],
+            profiles: [],
             totalPages: 0,
             page: 0
         }
@@ -19,8 +19,8 @@ export const useModulesStore = defineStore('module', {
     actions: {
         async get(index: number) {
             try {
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/modules?page=${index}&sort=dateCreated,asc`)
-                this.modules = response.data.content
+                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profiles?page=${index}&sort=dateCreated,asc`)
+                this.profiles = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
             } catch (ex) {
@@ -30,11 +30,11 @@ export const useModulesStore = defineStore('module', {
         async save(id: String, name: String) {
             try {
                 if (id.trim() != "") {
-                    await axios.put(`${import.meta.env.VITE_ADMIN_URL}admin/module/${id}`, {
+                    await axios.put(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`, {
                         name
                     })
                 } else {
-                    await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/modules`, {
+                    await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/profiles`, {
                         name,
                         dateCreated: new Date()
                     })
@@ -53,7 +53,7 @@ export const useModulesStore = defineStore('module', {
         },
         async delete(id: string) {
             try {
-                await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/module/${id}`)
+                await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`)
 
                 let toast = document.getElementById("toast-success");
                 if (toast !== null) {

@@ -21,11 +21,11 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
             </div>
           </router-link>
 
-          <div class="card-item bg-light">
+          <router-link to="/admin/profiles" class="card-item bg-light">
             <div class="card-inner">
               <h5 class="card-title"> {{ $t("profileAccess") }}</h5>
             </div>
-          </div>
+          </router-link>
 
           <router-link to="/admin/users" class="card-item bg-light">
             <div class="card-inner">

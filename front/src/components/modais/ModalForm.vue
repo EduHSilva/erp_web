@@ -2,7 +2,11 @@
 export default {
   props: {
     id: String,
-    name: String
+    name: String,
+    text: {
+      type: String,
+      required: true
+    }
   },
   emits: ["change", "save"],
 
@@ -15,7 +19,7 @@ export default {
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $t("newModule") }}</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $t(text) }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">

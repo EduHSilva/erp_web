@@ -3,14 +3,14 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 import ComponentPagination from "@/components/ComponentPagination.vue";
-import {useModulesStore} from "@/store/modules/modulesModule";
 import ModalForm from "@/components/modais/ModalForm.vue";
 import DefaultTable from "@/components/DefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
+import {useProfileStore} from "@/store/modules/profilesModule";
 
-const store = useModulesStore()
+const store = useProfileStore()
 store.get(0)
 </script>
 <script lang="ts">
@@ -21,10 +21,10 @@ export default {
         {
           img: "/icons/list.svg",
           description: "list",
-          link: "/admin/modules"
+          link: "/admin/profiles"
         },
       ],
-      text: ["admin", "modules", "list"],
+      text: ["admin", "profiles", "list"],
       editing: {
         id: "",
         name: ""
@@ -56,18 +56,18 @@ export default {
 
 <template>
   <ModalForm @save="store.save(editing.id, editing.name)" :id="editing.id" :name="editing.name"
-             @change="changeName" text="newModule"/>
+             @change="changeName" text="newProfile"/>
   <ModalConfirm @delete="store.delete(deleteId)"/>
   <ComponentToastSuccess message="saveSuccess"/>
   <ComponentToastError/>
   <ComponentHeader inner :text="text"/>
   <main>
     <div class="col-3">
-      <ComponentSidebarInner :links="links" title="modules"/>
+      <ComponentSidebarInner :links="links" title="profiles"/>
     </div>
     <div class="col-8 card ">
       <div class="card-header">
-        <h2 class="text-center py-2">{{ $t("modules") }}</h2>
+        <h2 class="text-center py-2">{{ $t("profiles") }}</h2>
         <button type="button" class="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#addModal"
@@ -77,7 +77,7 @@ export default {
         </button>
       </div>
       <div class="card-body">
-        <DefaultTable :modules="store.modules" @edit="openModalEdit" @delete="openConfirmDeleteModal"/>
+        <DefaultTable :modules="store.profiles" @edit="openModalEdit" @delete="openConfirmDeleteModal"/>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>

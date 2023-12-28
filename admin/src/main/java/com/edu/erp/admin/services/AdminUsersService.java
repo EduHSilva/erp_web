@@ -5,6 +5,8 @@ import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.repositories.AdminUsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +36,8 @@ public class AdminUsersService {
     }
 
 
-    public List<AdminUsers> findAll() {
-        return adminUsersRepository.findByDateDeletionIsNull();
+    public Page<AdminUsers> findAll(Pageable pageable) {
+        return adminUsersRepository.findByDateDeletionIsNull(pageable);
     }
 
     public Optional<AdminUsers> findById(UUID id) {

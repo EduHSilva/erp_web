@@ -21,10 +21,12 @@
   "noData": "No data",
   "newModule": "New Module",
   "save": "Save",
-  "moduleSaveSuccess": "Module save successful",
+  "saveSuccess": "Save successful",
   "error": "An error has occurred",
   "cancel": "Cancel",
   "attention": "Attention",
   "confirm": "Confirm",
-  "confirmDelete": "Proceed with the action? "
+  "confirmDelete": "Proceed with the action? ",
+  "profiles": "Profiles",
+  "newProfile": "New profile"
 }

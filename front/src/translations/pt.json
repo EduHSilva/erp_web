@@ -21,10 +21,12 @@
   "noData": "Sem dados",
   "newModule": "Novo Módulo",
   "save": "Salvar",
-  "moduleSaveSuccess": "Módulo salvo com sucesso",
+  "saveSuccess": "Salvo com sucesso",
   "error": "Ocorreu um erro",
   "attention": "Atenção",
   "cancel": "Cancelar",
   "confirm": "Confirmar",
-  "confirmDelete": "Prosseguir com a ação? "
+  "confirmDelete": "Prosseguir com a ação? ",
+  "profiles": "Perfis de acesso",
+  "newProfile": "Novo perfil"
 }

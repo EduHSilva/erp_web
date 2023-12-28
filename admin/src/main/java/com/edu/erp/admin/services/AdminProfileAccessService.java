@@ -10,6 +10,8 @@ import com.edu.erp.admin.repositories.AdminModulesRepository;
 import com.edu.erp.admin.repositories.AdminProfileAccessRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,8 +34,8 @@ public class AdminProfileAccessService {
     }
 
 
-    public List<AdminProfileAccess> findAll() {
-        return repository.findAll();
+    public Page<AdminProfileAccess> findAll(Pageable pageable) {
+        return repository.findByDateDeletionIsNull(pageable);
     }
 
     public Optional<AdminProfileAccess> findById(UUID id) {
@@ -57,7 +59,7 @@ public class AdminProfileAccessService {
             Optional<AdminProfileAccess> adminProfileAccess = repository.findById(id);
             if (adminProfileAccess.isPresent()) {
                 AdminProfileAccess profileAccess = adminProfileAccess.get();
-                BeanUtils.copyProperties(profileAccess, dto);
+                profileAccess.setName(dto.name());
                 repository.save(profileAccess);
                 return profileAccess;
             }
