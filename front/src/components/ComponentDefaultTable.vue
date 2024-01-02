@@ -1,8 +1,10 @@
 <script lang="ts">
 import util from '@/mixins/util'
 import type Module from "@/store/types/module";
+import ActionsTableComponent from "@/components/ComponentActionsTable.vue";
 
 export default {
+  components: {ActionsTableComponent},
   props: {
     data: {
       type: Array as () => Module[],
@@ -11,6 +13,12 @@ export default {
     modal: {
       type: Boolean,
       required: true
+    },
+    edit: {
+      type: Function
+    },
+    deleteAction: {
+      type: Function
     }
   },
   mixins: [util]
@@ -28,35 +36,11 @@ export default {
           <th scope="col">{{ $t("actions") }}</th>
         </tr>
         </thead>
-
         <tbody>
         <tr v-for="d in data">
           <td>{{ d.name }}</td>
           <td>{{ formatDate(d.dateCreated) }}</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                {{ $t("actions") }}
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <button class="dropdown-item" v-if="modal" data-bs-toggle="modal"
-                          data-bs-target="#addModal" @click="$emit('edit', d.id, d.name)">
-                    {{ $t("edit") }}
-                  </button>
-                  <button class="dropdown-item" v-else @click="$emit('edit', d.id, d.name)">
-                    {{ $t("edit") }}
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item danger" @click="$emit('delete', d.id)" data-bs-toggle="modal"
-                          data-bs-target="#confirmModal">{{ $t("delete") }}
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </td>
+          <ActionsTableComponent :modal="modal" :data="d" @edit="edit" @delete="deleteAction"/>
         </tr>
         </tbody>
       </table>

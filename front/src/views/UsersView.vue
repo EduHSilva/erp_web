@@ -6,6 +6,7 @@ import {useUserStore} from "@/store/modules/userModule";
 import ComponentPagination from "@/components/ComponentPagination.vue";
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+import ModalConfirm from "@/components/modais/ModalConfirm.vue";
 
 const store = useUserStore()
 store.get(0)
@@ -16,12 +17,22 @@ export default  {
   data() {
       return {
         text: ["admin", "users", "list"],
+        deleteId: ""
       }
   },
+  methods: {
+    openEdit(id: string) {
+      this.$router.push({ path: '/admin/user/' + id })
+    },
+    openConfirmDeleteModal(id: string) {
+      this.deleteId = id;
+    },
+  }
 }
 </script>
 
 <template>
+  <ModalConfirm @delete="store.delete(deleteId)"/>
   <ComponentHeader inner :text="text"/>
   <main>
     <div class="col-3">
@@ -32,7 +43,7 @@ export default  {
         <h2 class="text-center py-2">{{ $t("userInfo")}}</h2>
       </div>
       <div class="card-body">
-        <ComponentTableUsers :users="store.userList"  />
+        <ComponentTableUsers :users="store.userList" :delete-action="openConfirmDeleteModal" :edit="openEdit" />
       </div>
       <div class="card-footer">
         <ComponentPagination :total-pages="store.totalPages" :page="store.page"/>

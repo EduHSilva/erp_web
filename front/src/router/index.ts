@@ -5,6 +5,7 @@ import AdminView from "@/views/AdminView.vue";
 import ModulesView from "@/views/ModulesView.vue";
 import ProfilesView from "@/views/ProfilesView.vue";
 import ProfileForm from "@/views/Forms/ProfileForm.vue";
+import UserForm from "@/views/Forms/UserForm.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,15 +31,20 @@ const router = createRouter({
             component: ProfilesView,
         },
         {
-            path: '/admin/profile/:id?',
-            name: 'profilesAddEdit',
-            component: ProfileForm,
+            path: '/admin/user/:id?',
+            name: 'userAddEdit',
+            component: UserForm,
         },
         {
             path: '/admin/users',
             name: 'users',
             component: UsersView
-        }
+        },
+        {
+            path: '/admin/profile/:id?',
+            name: 'profileAddEdit',
+            component: ProfileForm,
+        },
     ],
     linkExactActiveClass: 'bg-light'
 })

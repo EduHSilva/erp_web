@@ -30,5 +30,13 @@
   "profiles": "Perfis de acesso",
   "newProfile": "Novo perfil",
   "link": "Vincular/Desvincular",
-  "links": "Vinculados"
+  "links": "Vinculados",
+  "back": "Voltar",
+  "cpf": "CPF",
+  "phone": "Celular",
+  "language": "Idioma",
+  "english": "Ingles",
+  "portuguese": "Portugues",
+  "inactive": "Inativo",
+  "password": "Senha"
 }

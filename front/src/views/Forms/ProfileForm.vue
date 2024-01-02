@@ -100,6 +100,7 @@ export default {
           </form>
         </div>
         <div class="card-footer">
+          <button class="btn btn-secondary" @click="$router.back">{{$t("back")}}</button>
           <button class="btn-primary" @click="save">
             {{ $t("save") }}
           </button>

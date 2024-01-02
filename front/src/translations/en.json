@@ -30,5 +30,13 @@
   "profiles": "Profiles",
   "newProfile": "New profile",
   "link": "Link/Unlink",
-  "links": "Links"
+  "links": "Links",
+  "back": "Back",
+  "cpf": "CPF",
+  "phone": "Phone",
+  "language": "Language",
+  "english": "English",
+  "portuguese": "Portuguese",
+  "inactive": "Inactive",
+  "password": "Password"
 }

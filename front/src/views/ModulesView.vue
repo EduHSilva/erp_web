@@ -5,7 +5,7 @@ import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vu
 import ComponentPagination from "@/components/ComponentPagination.vue";
 import {useModulesStore} from "@/store/modules/modulesModule";
 import ModalForm from "@/components/modais/ModalForm.vue";
-import DefaultTable from "@/components/DefaultTable.vue";
+import DefaultTable from "@/components/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
@@ -70,7 +70,7 @@ export default {
         </button>
       </div>
       <div class="card-body">
-        <DefaultTable :modal="true" :data="store.modules" @edit="openModalEdit" @delete="openConfirmDeleteModal"/>
+        <DefaultTable :modal="true" :data="store.modules" :edit="openModalEdit" :delete-action="openConfirmDeleteModal"/>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>

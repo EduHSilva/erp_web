@@ -8,6 +8,8 @@ export default {
       switch (status) {
         case "ACTIVE":
           return $t("active")
+        case "INACTIVE":
+          return $t("inactive")
       }
     }
   }

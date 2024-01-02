@@ -82,3 +82,25 @@ body {
     background: rgba(0,0,0,.1);
 }
 
+.input {
+    display: flex;
+    width: 395px;
+    padding: 4px 8px;
+    align-items: flex-start;
+    gap: 8px;
+    background: #F9FAFA;
+}
+
+.input:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: 0;
+    box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    color: #161616;
+    line-height: 18px;
+    font-weight: 500;
+}

@@ -14,7 +14,8 @@ export default {
 </script>
 
 <template>
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example" class="d-flex justify-content-sm-between align-items-md-center">
+    <button class="btn btn-secondary" @click="$router.back">{{$t("back")}}</button>
     <ul class="pagination justify-content-end">
       <li class="page-item">
         <a class="page-link" aria-label="Previous" @click="$emit('change-pagination', 0)">

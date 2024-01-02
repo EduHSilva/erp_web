@@ -3,7 +3,7 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 import ComponentPagination from "@/components/ComponentPagination.vue";
-import DefaultTable from "@/components/DefaultTable.vue";
+import DefaultTable from "@/components/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
@@ -50,7 +50,7 @@ export default {
         <h2 class="text-center py-2">{{ $t("profiles") }}</h2>
       </div>
       <div class="card-body">
-        <DefaultTable :modal="false" :data="store.profiles" @edit="openEdit" @delete="openConfirmDeleteModal"/>
+        <DefaultTable :modal="false" :data="store.profiles" :edit="openEdit" :delete-action="openConfirmDeleteModal"/>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>
