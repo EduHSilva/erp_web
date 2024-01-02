@@ -4,8 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
 
-public record AdminProfileAccessDTO(@NotBlank String name ,
-                                    Date dateCreated,
-                                    Date dateDeletion) {
-
+public record AdminProfileAccessDTO(
+        @NotBlank String name,
+        Date dateCreated,
+        Date dateDeletion
+) {
 }

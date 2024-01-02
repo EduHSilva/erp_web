@@ -75,16 +75,18 @@ public class AdminProfileAccessService {
             AdminProfileAccess profile = profiles.get();
             AdminModules module = modules.get();
 
-            if (profile.getDateDeletion() == null || module.getDateDeletion() == null) {
+            if (profile.getDateDeletion() != null || module.getDateDeletion() != null) {
                 return null;
             }
-            if (profile.getAdminModules() != null) {
+            if (profile.getAdminModules() != null && !profile.getAdminModules().contains(module)) {
                 profile.getAdminModules().add(module);
-                try {
-                    return repository.save(profile);
-                } catch (Exception e) {
-                    throw new RuntimeException();
-                }
+            } else {
+                profile.getAdminModules().remove(module);
+            }
+            try {
+                return repository.save(profile);
+            } catch (Exception e) {
+                throw new RuntimeException();
             }
         }
         return null;

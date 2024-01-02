@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/admin")
@@ -42,11 +39,7 @@ public class AdminModulesController {
 
     @GetMapping("/modules")
     public ResponseEntity<Page<AdminModules>> get(Pageable pageable) {
-        Page<AdminModules> modulesList = service.findAll(pageable);
-        for(AdminModules module : modulesList) {
-            module.add(linkTo(methodOn(AdminModulesController.class).getById(module.getId())).withSelfRel());
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(modulesList);
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
     }
 
     @GetMapping("/module/{id}")

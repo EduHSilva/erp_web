@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
-import org.springframework.hateoas.RepresentationModel;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "admin_modules")
-public class AdminModules extends RepresentationModel<AdminModules> implements Serializable {
+public class AdminModules implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
