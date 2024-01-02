@@ -17,13 +17,6 @@ store.get(0)
 export default {
   data() {
     return {
-      links: [
-        {
-          img: "/icons/list.svg",
-          description: "list",
-          link: "/admin/modules"
-        },
-      ],
       text: ["admin", "modules", "list"],
       editing: {
         id: "",
@@ -63,7 +56,7 @@ export default {
   <ComponentHeader inner :text="text"/>
   <main>
     <div class="col-3">
-      <ComponentSidebarInner :links="links" title="modules"/>
+      <ComponentSidebarInner :links="store.links" title="modules"/>
     </div>
     <div class="col-8 card ">
       <div class="card-header">
@@ -77,7 +70,7 @@ export default {
         </button>
       </div>
       <div class="card-body">
-        <DefaultTable :modules="store.modules" @edit="openModalEdit" @delete="openConfirmDeleteModal"/>
+        <DefaultTable :modal="true" :data="store.modules" @edit="openModalEdit" @delete="openConfirmDeleteModal"/>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>

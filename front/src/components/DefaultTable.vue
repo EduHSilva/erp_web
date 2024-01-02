@@ -1,11 +1,15 @@
 <script lang="ts">
-import util from '@/mixins/util.js'
+import util from '@/mixins/util'
 import type Module from "@/store/types/module";
 
 export default {
   props: {
-    modules: {
+    data: {
       type: Array as () => Module[],
+      required: true
+    },
+    modal: {
+      type: Boolean,
       required: true
     }
   },
@@ -15,7 +19,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="table-responsive" v-if="modules.length != 0">
+    <div class="table-responsive" v-if="data.length != 0">
       <table class="table">
         <thead class="table-header">
         <tr>
@@ -26,9 +30,9 @@ export default {
         </thead>
 
         <tbody>
-        <tr v-for="module in modules">
-          <td>{{ module.name }}</td>
-          <td>{{ formatDate(module.dateCreated) }}</td>
+        <tr v-for="d in data">
+          <td>{{ d.name }}</td>
+          <td>{{ formatDate(d.dateCreated) }}</td>
           <td>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -37,13 +41,18 @@ export default {
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <button class="dropdown-item" data-bs-toggle="modal"
-                          data-bs-target="#addModal" @click="$emit('edit', module.id, module.name)">
+                  <button class="dropdown-item" v-if="modal" data-bs-toggle="modal"
+                          data-bs-target="#addModal" @click="$emit('edit', d.id, d.name)">
+                    {{ $t("edit") }}
+                  </button>
+                  <button class="dropdown-item" v-else @click="$emit('edit', d.id, d.name)">
                     {{ $t("edit") }}
                   </button>
                 </li>
                 <li>
-                  <button class="dropdown-item danger" @click="$emit('delete', module.id)"  data-bs-toggle="modal" data-bs-target="#confirmModal">{{ $t("delete") }}</button>
+                  <button class="dropdown-item danger" @click="$emit('delete', d.id)" data-bs-toggle="modal"
+                          data-bs-target="#confirmModal">{{ $t("delete") }}
+                  </button>
                 </li>
               </ul>
             </div>
@@ -53,7 +62,7 @@ export default {
       </table>
     </div>
     <div v-else>
-      <div class="w-100 d-flex justify-content-center fw-bold" v-if="modules.length == 0">
+      <div class="w-100 d-flex justify-content-center fw-bold">
         {{ $t("noData") }}
       </div>
     </div>

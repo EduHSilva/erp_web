@@ -1,11 +1,13 @@
 import {defineStore} from "pinia";
 import type Module from "../types/module"
 import axios from "axios";
+import type LinkSidebar from "@/store/types/linkSidebar";
 
 interface State {
     modules: Module[],
     totalPages: number,
     page: number,
+    links: LinkSidebar[]
 }
 
 export const useModulesStore = defineStore('module', {
@@ -13,7 +15,14 @@ export const useModulesStore = defineStore('module', {
         return {
             modules: [],
             totalPages: 0,
-            page: 0
+            page: 0,
+            links: [
+                {
+                    img: "/icons/list.svg",
+                    description: "list",
+                    link: "/admin/modules"
+                },
+            ],
         }
     },
     actions: {

@@ -16,18 +16,6 @@ export default  {
   data() {
       return {
         text: ["admin", "users", "list"],
-        links: [
-          {
-            img: "/icons/list.svg",
-            description: "list",
-            link: "/admin/users"
-          },
-          {
-            img: "/icons/add.svg",
-            description: "add",
-            link: "/admin/users/edit"
-          }
-        ]
       }
   },
 }
@@ -37,7 +25,7 @@ export default  {
   <ComponentHeader inner :text="text"/>
   <main>
     <div class="col-3">
-      <ComponentSidebarInner  :links="links" title="users"/>
+      <ComponentSidebarInner  :links="store.links" title="users"/>
     </div>
     <div class="col-8 card ">
       <div class="card-header">

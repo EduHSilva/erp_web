@@ -1,11 +1,13 @@
 import {defineStore} from "pinia";
 import type User from "../types/user"
 import axios from "axios";
+import type LinkSidebar from "@/store/types/linkSidebar";
 import .meta.env.__APP_ENV__
 interface State {
     userList: User[],
     totalPages: 0,
-    page: 0
+    page: 0,
+    links: LinkSidebar[]
 }
 
 export const useUserStore = defineStore('user', {
@@ -13,7 +15,19 @@ export const useUserStore = defineStore('user', {
         return {
             userList: [],
             totalPages: 0,
-            page: 0
+            page: 0,
+            links: [
+                {
+                    img: "/icons/list.svg",
+                    description: "list",
+                    link: "/admin/users"
+                },
+                {
+                    img: "/icons/add.svg",
+                    description: "add",
+                    link: "/admin/users/edit"
+                }
+            ]
         }
     },
     actions: {

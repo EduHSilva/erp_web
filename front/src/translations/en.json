@@ -28,5 +28,7 @@
   "confirm": "Confirm",
   "confirmDelete": "Proceed with the action? ",
   "profiles": "Profiles",
-  "newProfile": "New profile"
+  "newProfile": "New profile",
+  "link": "Link/Unlink",
+  "links": "Links"
 }

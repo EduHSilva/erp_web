@@ -28,5 +28,7 @@
   "confirm": "Confirmar",
   "confirmDelete": "Prosseguir com a ação? ",
   "profiles": "Perfis de acesso",
-  "newProfile": "Novo perfil"
+  "newProfile": "Novo perfil",
+  "link": "Vincular/Desvincular",
+  "links": "Vinculados"
 }

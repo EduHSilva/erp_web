@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import AdminView from "@/views/AdminView.vue";
 import ModulesView from "@/views/ModulesView.vue";
 import ProfilesView from "@/views/ProfilesView.vue";
+import ProfileForm from "@/views/Forms/ProfileForm.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
             path: '/admin/profiles',
             name: 'profiles',
             component: ProfilesView,
+        },
+        {
+            path: '/admin/profile/:id?',
+            name: 'profilesAddEdit',
+            component: ProfileForm,
         },
         {
             path: '/admin/users',

@@ -1,10 +1,10 @@
 export default {
   methods: {
-    formatDate(date) {
+    formatDate(date: Date) {
       let newDate = new Date(date)
       return newDate.toLocaleDateString();
     },
-    formatStatus(status, $t) {
+    formatStatus(status: string, $t: any) {
       switch (status) {
         case "ACTIVE":
           return $t("active")

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type User from "../store/types/user"
-import util from '@/mixins/util.js'
+import util from '@/mixins/util'
 
 export default {
   props: {
