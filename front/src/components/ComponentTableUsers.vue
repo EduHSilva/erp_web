@@ -11,8 +11,14 @@ export default {
       type: Array as () => User[],
       required: true,
     },
-    deleteAction: Function,
-    edit: Function
+    deleteAction: {
+      type: Function,
+      required: true
+    },
+    edit: {
+      type: Function,
+      required: true
+    }
   },
   mixins: [util],
 

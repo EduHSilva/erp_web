@@ -1,9 +1,11 @@
+import type Profile from "@/store/types/profile";
+
 export default interface User {
     id: string,
     name: string
     email: string,
     status: string,
-    profile: string,
+    profile: Profile,
     dateCreated: Date,
     cpf: string,
     phone: string,

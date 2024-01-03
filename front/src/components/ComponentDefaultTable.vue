@@ -15,10 +15,12 @@ export default {
       required: true
     },
     edit: {
-      type: Function
+      type: Function,
+      required: true
     },
     deleteAction: {
-      type: Function
+      type: Function,
+      required: true
     }
   },
   mixins: [util]

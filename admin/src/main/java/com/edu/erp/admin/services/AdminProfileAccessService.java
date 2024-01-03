@@ -11,6 +11,7 @@ import com.edu.erp.admin.repositories.AdminProfileAccessRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,12 @@ public class AdminProfileAccessService {
 
 
     public Page<AdminProfileAccess> findAll(Pageable pageable) {
-        return repository.findByDateDeletionIsNull(pageable);
+        if (pageable.getPageNumber() == 0 && pageable.getPageSize() == Integer.MAX_VALUE) {
+            List<AdminProfileAccess> all = repository.findByDateDeletionIsNull();
+            return new PageImpl<>(all, pageable, all.size());
+        } else {
+            return repository.findByDateDeletionIsNull(pageable);
+        }
     }
 
     public Optional<AdminProfileAccess> findById(UUID id) {

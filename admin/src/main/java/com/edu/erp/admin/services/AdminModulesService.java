@@ -5,10 +5,7 @@ import com.edu.erp.admin.models.AdminModules;
 import com.edu.erp.admin.repositories.AdminModulesRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,7 +29,12 @@ public class AdminModulesService {
     }
 
     public Page<AdminModules> findAll(Pageable pageable) {
-        return repository.findByDateDeletionIsNull(pageable);
+        if (pageable.getPageNumber() == 0 && pageable.getPageSize() == Integer.MAX_VALUE) {
+            List<AdminModules> allModules = repository.findByDateDeletionIsNull();
+            return new PageImpl<>(allModules, pageable, allModules.size());
+        } else {
+            return repository.findByDateDeletionIsNull(pageable);
+        }
     }
 
     public Optional<AdminModules> findById(UUID id) {

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import ComponentTableUsers from "@/components/ComponentTableUsers.vue";
-import ComponentSidebar from "@/components/sidebar/ComponentSidebar.vue";
 
 import {useUserStore} from "@/store/modules/userModule";
 import ComponentPagination from "@/components/ComponentPagination.vue";

@@ -1,10 +1,14 @@
 <script lang="ts">
+
 export default {
   props: {
-    modal: true,
+    modal: {
+      type: Boolean,
+      required: true
+    },
     data: {
-      id: "",
-      name: ""
+      type: Object,
+      required: true
     }
   }
 }

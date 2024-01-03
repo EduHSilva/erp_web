@@ -51,7 +51,11 @@ export const useProfileStore = defineStore('profile', {
         },
         async get(index: number) {
             try {
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profiles?page=${index}&sort=dateCreated,desc`)
+                let size = ''
+                if (index == -1) {
+                    size = `size=2147483647`
+                }
+                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profiles?page=${index}&sort=dateCreated,desc&${size}`)
                 this.profiles = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
@@ -71,9 +75,9 @@ export const useProfileStore = defineStore('profile', {
                     toast.classList.add("show");
                     setTimeout(function () {
                         if (toast != null) toast.classList.remove("show");
+                        window.location.href = "/admin/profiles"
                     }, 3000);
                 }
-                window.location.href = "/admin/profiles"
             } catch (e) {
                 this.showToastError();
             }

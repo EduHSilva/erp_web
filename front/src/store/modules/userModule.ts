@@ -3,8 +3,6 @@ import type User from "../types/user"
 import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
 
-import .meta.env.__APP_ENV__
-
 interface State {
     userList: User[],
     totalPages: 0,

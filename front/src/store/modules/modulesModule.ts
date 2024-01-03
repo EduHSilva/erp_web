@@ -27,8 +27,12 @@ export const useModulesStore = defineStore('module', {
     },
     actions: {
         async get(index: number) {
+            let size = ''
+            if (index == -1) {
+                size = `size=2147483647`
+            }
             try {
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/modules?page=${index}&sort=dateCreated,asc`)
+                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/modules?page=${index}&sort=dateCreated,asc&${size}`)
                 this.modules = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
@@ -36,6 +40,7 @@ export const useModulesStore = defineStore('module', {
                 this.showToastError();
             }
         },
+
         async save(id: String, name: String) {
             try {
                 if (id.trim() != "") {
@@ -54,8 +59,8 @@ export const useModulesStore = defineStore('module', {
                     setTimeout(function () {
                         if (toast != null) toast.classList.remove("show");
                     }, 3000);
+                    window.location.reload()
                 }
-                await this.get(0);
             } catch (e) {
                 this.showToastError();
             }

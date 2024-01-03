@@ -1,6 +1,5 @@
 <script lang="ts">
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
-import type User from "@/store/types/user";
 
 export default {
   components: {ComponentSidebarInner},
