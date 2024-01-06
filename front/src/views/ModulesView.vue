@@ -3,7 +3,7 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 import ComponentPagination from "@/components/ComponentPagination.vue";
-import {useModulesStore} from "@/store/modules/modulesModule";
+import {useModulesStore} from "@/store/modules/admin/modulesModule";
 import ModalForm from "@/components/modais/ModalForm.vue";
 import DefaultTable from "@/components/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
@@ -51,7 +51,7 @@ export default {
   <ModalForm @save="store.save(editing.id, editing.name)" :id="editing.id" :name="editing.name"
              @change="changeName" text="newModule"/>
   <ModalConfirm @delete="store.delete(deleteId)"/>
-  <ComponentToastSuccess message="saveSuccess"/>
+  <ComponentToastSuccess message="success"/>
   <ComponentToastError/>
   <ComponentHeader inner :text="text"/>
   <main>

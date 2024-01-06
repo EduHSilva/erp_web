@@ -7,7 +7,7 @@ import DefaultTable from "@/components/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
-import {useProfileStore} from "@/store/modules/profilesModule";
+import {useProfileStore} from "@/store/modules/admin/profilesModule";
 
 const store = useProfileStore()
 store.get(0)
@@ -38,7 +38,7 @@ export default {
 
 <template>
   <ModalConfirm @delete="store.delete(deleteId)"/>
-  <ComponentToastSuccess message="saveSuccess"/>
+  <ComponentToastSuccess message="success"/>
   <ComponentToastError/>
   <ComponentHeader inner :text="text"/>
   <main>

@@ -1,15 +1,17 @@
 <script lang="ts">
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 import ComponentHeader from "@/components/ComponentHeader.vue";
-import {useProfileStore} from "@/store/modules/profilesModule";
+import {useProfileStore} from "@/store/modules/admin/profilesModule";
 import util from "@/mixins/util";
-import {useModulesStore} from "@/store/modules/modulesModule";
+import {useModulesStore} from "@/store/modules/admin/modulesModule";
 import type Profile from "@/store/types/profile";
 import type Module from "@/store/types/module";
 import type LinkSidebar from "@/store/types/linkSidebar";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 
 export default {
-  components: {ComponentHeader, ComponentSidebarInner},
+  components: {ComponentToastError, ComponentToastSuccess, ComponentHeader, ComponentSidebarInner},
   async created() {
     let id: string = this.$route.params.id as string
     if (id != null && id.trim() != "") {
@@ -58,57 +60,58 @@ export default {
 </script>
 
 <template>
-  <div>
-    <ComponentHeader inner :text="text"/>
-    <main>
-      <div class="col-3">
-        <ComponentSidebarInner :links="links" title="profiles"/>
-      </div>
-      <div class="col-8 card ">
-        <form @submit.prevent="save">
-          <div class="card-header">
-            <h2 class="text-center py-2">
-              {{ $t(text[text.length - 1]) }}
-            </h2>
-          </div>
-          <div class="card-body d-flex">
-            <div class="col">
-              <div class="mb-3">
-                <label for="name" class="form-label"> {{ $t("name") }} </label>
-                <input class="form-control input" id="name" name="name" :placeholder="$t('name')"
-                       v-model="profile.name" required>
-              </div>
-              <div class="mb-3">
-                <label for="dateCreated" class="form-label"> {{ $t("dateCreated") }} </label>
-                <input class="form-control input" id="dateCreated" name="dateCreated" :placeholder="$t('dateCreated')"
-                       disabled :value="formatDate(profile.dateCreated)">
-              </div>
+  <ComponentHeader inner :text="text"/>
+  <ComponentToastSuccess message="success"/>
+  <ComponentToastError/>
+
+  <main>
+    <div class="col-3">
+      <ComponentSidebarInner :links="links" title="profiles"/>
+    </div>
+    <div class="col-8 card ">
+      <form @submit.prevent="save">
+        <div class="card-header">
+          <h2 class="text-center py-2">
+            {{ $t(text[text.length - 1]) }}
+          </h2>
+        </div>
+        <div class="card-body d-flex">
+          <div class="col">
+            <div class="mb-3">
+              <label for="name" class="form-label"> {{ $t("name") }} </label>
+              <input class="form-control input" id="name" name="name" :placeholder="$t('name')"
+                     v-model="profile.name" required>
             </div>
-            <div class="col p-3 d-flex flex-column" v-if="edit && modules.length > 1">
-              <h4>{{ $t("modules") }}</h4>
-              <div>
-                <input class="form-control" list="datalistOptions" v-model="selectedModule"
-                       placeholder="Type to search...">
-                <datalist id="datalistOptions">
-                  <option v-for="module in modules" :value="module.name" :data-value="module.id"/>
-                </datalist>
-                <button class="btn-primary mt-2" @click.prevent="linkModule">{{ $t("link") }}</button>
-              </div>
-              <hr>
-              <h4>{{ $t("links") }}</h4>
-              <span v-for="m in profile.adminModules"> {{ m.name }}</span>
+            <div class="mb-3">
+              <label for="dateCreated" class="form-label"> {{ $t("dateCreated") }} </label>
+              <input class="form-control input" id="dateCreated" name="dateCreated" :placeholder="$t('dateCreated')"
+                     disabled :value="formatDate(profile.dateCreated)">
             </div>
           </div>
-          <div class="card-footer">
-            <button class="btn btn-secondary" @click="$router.back">{{ $t("back") }}</button>
-            <button class="btn-primary" type="submit">
-              {{ $t("save") }}
-            </button>
+          <div class="col p-3 d-flex flex-column" v-if="edit && modules.length > 1">
+            <h4>{{ $t("modules") }}</h4>
+            <div>
+              <input class="form-control" list="datalistOptions" v-model="selectedModule"
+                     placeholder="Type to search...">
+              <datalist id="datalistOptions">
+                <option v-for="module in modules" :value="module.name" :data-value="module.id"/>
+              </datalist>
+              <button class="btn-primary mt-2" @click.prevent="linkModule">{{ $t("link") }}</button>
+            </div>
+            <hr>
+            <h4>{{ $t("links") }}</h4>
+            <span v-for="m in profile.adminModules"> {{ m.name }}</span>
           </div>
-        </form>
-      </div>
-    </main>
-  </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-secondary" @click="$router.back">{{ $t("back") }}</button>
+          <button class="btn-primary" type="submit">
+            {{ $t("save") }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
 </template>
 
 <style scoped>

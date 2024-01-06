@@ -38,5 +38,6 @@
   "english": "Ingles",
   "portuguese": "Portugues",
   "inactive": "Inativo",
-  "password": "Senha"
+  "password": "Senha",
+  "success": "Ação completada com sucesso"
 }

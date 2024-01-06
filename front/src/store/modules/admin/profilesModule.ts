@@ -1,7 +1,9 @@
 import {defineStore} from "pinia";
-import type Profile from "../types/profile"
+import type Profile from "../../types/profile"
 import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
+import util from "../../../mixins/util"
+
 
 interface State {
     profiles: Profile[],
@@ -36,9 +38,9 @@ export const useProfileStore = defineStore('profile', {
                 await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/profile/module`, {
                     idProfile, idModule
                 })
-                window.location.reload()
+                util.methods.showToastSuccess(() => window.location.reload());
             } catch (ex) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async getOne(id: string) {
@@ -46,7 +48,7 @@ export const useProfileStore = defineStore('profile', {
                 let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`)
                 return response.data
             } catch (ex) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async get(index: number) {
@@ -60,53 +62,35 @@ export const useProfileStore = defineStore('profile', {
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
             } catch (ex) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async save(profile: Profile) {
             try {
+                console.log("1")
                 if (profile.id != undefined && profile.id.trim() != "") {
                     await axios.put(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${profile.id}`, profile)
                 } else {
                     await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/profiles`, profile)
                 }
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                        window.location.href = "/admin/profiles"
-                    }, 3000);
-                }
+
+                util.methods.showToastSuccess(() => window.location.href = "/admin/profiles")
             } catch (e) {
-                this.showToastError();
+
+                console.log("2")
+                util.methods.showToastError();
             }
         },
         async delete(id: string) {
             try {
                 await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`)
 
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                    }, 3000);
-                }
+                util.methods.showToastSuccess(null);
                 await this.get(0);
             } catch (e) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
-        showToastError() {
-            let toast = document.getElementById("toast-error");
-            if (toast !== null) {
-                toast.classList.add("show");
-                setTimeout(function () {
-                    if (toast != null) toast.classList.remove("show");
-                }, 3000);
-            }
-        }
     }
 })
 

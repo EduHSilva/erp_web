@@ -1,7 +1,8 @@
 import {defineStore} from "pinia";
-import type Module from "../types/module"
+import type Module from "../../types/module"
 import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
+import util from "../../../mixins/util"
 
 interface State {
     modules: Module[],
@@ -37,7 +38,7 @@ export const useModulesStore = defineStore('module', {
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
             } catch (ex) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
 
@@ -53,41 +54,19 @@ export const useModulesStore = defineStore('module', {
                         dateCreated: new Date()
                     })
                 }
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                    }, 3000);
-                    window.location.reload()
-                }
+                util.methods.showToastSuccess(() => window.location.reload());
             } catch (e) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async delete(id: string) {
             try {
                 await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/module/${id}`)
 
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                    }, 3000);
-                }
+                util.methods.showToastSuccess(null);
                 await this.get(0);
             } catch (e) {
-                this.showToastError();
-            }
-        },
-        showToastError() {
-            let toast = document.getElementById("toast-error");
-            if (toast !== null) {
-                toast.classList.add("show");
-                setTimeout(function () {
-                    if (toast != null) toast.classList.remove("show");
-                }, 3000);
+                util.methods.showToastError();
             }
         }
     }

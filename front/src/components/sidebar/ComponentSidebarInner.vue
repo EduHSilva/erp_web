@@ -19,14 +19,14 @@ export default {
 <template>
   <div class="nav-bar rounded">
     <div class="container">
-      <div class="logo">
+      <a class="logo" href="/">
         <div class="a-wrapper">
           <div class="a">A</div>
         </div>
         <div class="group">
           <div class="text-wrapper">ABC</div>
         </div>
-      </div>
+      </a>
       <div class="dashboard-mainmenu">
         <div class="frame">
           <h4>{{ $t(title) }}</h4>

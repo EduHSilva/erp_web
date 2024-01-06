@@ -9,6 +9,7 @@ import {RouterView} from 'vue-router'
 <style scoped>
   main {
     background-color: var(--secondary-color);
+    position: relative;
   }
 </style>
 

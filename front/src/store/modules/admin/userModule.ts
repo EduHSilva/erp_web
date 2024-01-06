@@ -1,7 +1,8 @@
 import {defineStore} from "pinia";
-import type User from "../types/user"
+import type User from "../../types/user"
 import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
+import util from "../../../mixins/util"
 
 interface State {
     userList: User[],
@@ -42,16 +43,10 @@ export const useUserStore = defineStore('user', {
             try {
                 await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/user/${id}`)
 
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                    }, 3000);
-                }
+                util.methods.showToastSuccess(null);
                 await this.get(0);
             } catch (e) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async getOne(id: string) {
@@ -59,7 +54,7 @@ export const useUserStore = defineStore('user', {
                 let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/user/${id}`)
                 return response.data
             } catch (ex) {
-                this.showToastError();
+                util.methods.showToastError();
             }
         },
         async save(user: User) {
@@ -69,27 +64,11 @@ export const useUserStore = defineStore('user', {
                 } else {
                     await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/users`, user)
                 }
-                let toast = document.getElementById("toast-success");
-                if (toast !== null) {
-                    toast.classList.add("show");
-                    setTimeout(function () {
-                        if (toast != null) toast.classList.remove("show");
-                        window.location.href = "/admin/users"
-                    }, 3000);
-                }
+                util.methods.showToastSuccess(() => window.location.href = "/admin/users");
             } catch (e) {
-                this.showToastError()
+                util.methods.showToastError();
             }
         },
-        showToastError() {
-            let toast = document.getElementById("toast-error");
-            if (toast !== null) {
-                toast.classList.add("show");
-                setTimeout(function () {
-                    if (toast != null) toast.classList.remove("show");
-                }, 3000);
-            }
-        }
 
     },
 
