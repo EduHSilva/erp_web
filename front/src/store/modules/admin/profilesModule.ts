@@ -1,8 +1,8 @@
 import {defineStore} from "pinia";
 import type Profile from "../../types/profile"
-import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
 import util from "../../../mixins/util"
+import {axiosAdminInstance} from "../../config/axios.config";
 
 
 interface State {
@@ -35,7 +35,7 @@ export const useProfileStore = defineStore('profile', {
     actions: {
         async addModule(idProfile: string, idModule: string) {
             try {
-                await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/profile/module`, {
+                await axiosAdminInstance.post(`admin/profile/module`, {
                     idProfile, idModule
                 })
                 util.methods.showToastSuccess(() => window.location.reload());
@@ -45,7 +45,7 @@ export const useProfileStore = defineStore('profile', {
         },
         async getOne(id: string) {
             try {
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`)
+                let response = await axiosAdminInstance(`admin/profile/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();
@@ -57,7 +57,7 @@ export const useProfileStore = defineStore('profile', {
                 if (index == -1) {
                     size = `size=2147483647`
                 }
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/profiles?page=${index}&sort=dateCreated,desc&${size}`)
+                let response = await axiosAdminInstance(`admin/profiles?page=${index}&sort=dateCreated,desc&${size}`)
                 this.profiles = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)
@@ -67,23 +67,20 @@ export const useProfileStore = defineStore('profile', {
         },
         async save(profile: Profile) {
             try {
-                console.log("1")
                 if (profile.id != undefined && profile.id.trim() != "") {
-                    await axios.put(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${profile.id}`, profile)
+                    await axiosAdminInstance.put(`admin/profile/${profile.id}`, profile)
                 } else {
-                    await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/profiles`, profile)
+                    await axiosAdminInstance.post(`admin/profiles`, profile)
                 }
 
                 util.methods.showToastSuccess(() => window.location.href = "/admin/profiles")
             } catch (e) {
-
-                console.log("2")
                 util.methods.showToastError();
             }
         },
         async delete(id: string) {
             try {
-                await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/profile/${id}`)
+                await axiosAdminInstance.delete(`admin/profile/${id}`)
 
                 util.methods.showToastSuccess(null);
                 await this.get(0);

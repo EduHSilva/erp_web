@@ -1,8 +1,8 @@
 import {defineStore} from "pinia";
 import type User from "../../types/user"
-import axios from "axios";
 import type LinkSidebar from "@/store/types/linkSidebar";
 import util from "../../../mixins/util"
+import {axiosAdminInstance} from "../../config/axios.config";
 
 interface State {
     userList: User[],
@@ -33,15 +33,18 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         async get(index: number) {
-            await axios(`${import.meta.env.VITE_ADMIN_URL}admin/users?page=${index}&sort=dateCreated,asc`).then(e => {
-                this.userList = e.data.content
-                this.totalPages = e.data.totalPages
-                this.page = e.data.number
-            })
+            try {
+                let response = await axiosAdminInstance(`admin/users?page=${index}&sort=dateCreated,asc`)
+                this.userList = response.data.content
+                this.totalPages = response.data.totalPages
+                this.page = response.data.number
+            } catch (e) {
+                util.methods.showToastError();
+            }
         },
         async delete(id: string) {
             try {
-                await axios.delete(`${import.meta.env.VITE_ADMIN_URL}admin/user/${id}`)
+                await axiosAdminInstance.delete(`admin/user/${id}`)
 
                 util.methods.showToastSuccess(null);
                 await this.get(0);
@@ -51,7 +54,7 @@ export const useUserStore = defineStore('user', {
         },
         async getOne(id: string) {
             try {
-                let response = await axios(`${import.meta.env.VITE_ADMIN_URL}admin/user/${id}`)
+                let response = await axiosAdminInstance(`admin/user/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();
@@ -60,9 +63,9 @@ export const useUserStore = defineStore('user', {
         async save(user: User) {
             try {
                 if (user.id != undefined && user.id.trim() != "") {
-                    await axios.put(`${import.meta.env.VITE_ADMIN_URL}admin/user/${user.id}`, user)
+                    await axiosAdminInstance.put(`admin/user/${user.id}`, user)
                 } else {
-                    await axios.post(`${import.meta.env.VITE_ADMIN_URL}admin/users`, user)
+                    await axiosAdminInstance.post(`admin/users`, user)
                 }
                 util.methods.showToastSuccess(() => window.location.href = "/admin/users");
             } catch (e) {

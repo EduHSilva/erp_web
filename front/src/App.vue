@@ -2,14 +2,15 @@
 import {RouterView} from 'vue-router'
 </script>
 
+
 <template>
-  <RouterView />
+  <RouterView/>
 </template>
 
 <style scoped>
-  main {
-    background-color: var(--secondary-color);
-    position: relative;
-  }
+main {
+  background-color: var(--secondary-color);
+  position: relative;
+}
 </style>
 

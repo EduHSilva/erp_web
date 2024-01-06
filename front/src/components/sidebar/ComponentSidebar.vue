@@ -1,25 +1,38 @@
 <script lang="ts">
-  import ComponentSidebarLinks from "@/components/sidebar/ComponentSidebarLinks.vue";
+import ComponentSidebarLinks from "@/components/sidebar/ComponentSidebarLinks.vue";
 
-  export default {
-    components: {ComponentSidebarLinks},
-    data() {
-        return {
-          modules: [
-            {
-              img: "/icons/home.svg",
-              description: "home",
-              link: "/"
-            },
-            {
-              img: "/icons/admin.svg",
-              description: "admin",
-              link: "/admin"
-            }
-          ]
+export default {
+  components: {ComponentSidebarLinks},
+  data() {
+    return {
+      modules: [
+        {
+          img: "/icons/home.svg",
+          description: "home",
+          link: "/home"
+        },
+        {
+          img: "/icons/admin.svg",
+          description: "admin",
+          link: "/admin"
+        },
+        {
+          img: "/icons/logout.svg",
+          description: "logout",
+          link: "/logout"
         }
-    },
-  }
+      ],
+      username: ''
+    }
+  },
+  created() {
+    let name
+    if (localStorage.getItem("username") != null) {
+      name = localStorage.getItem("username")
+    }
+    if (name != undefined) this.username = name;
+  },
+}
 </script>
 
 <template>
@@ -34,10 +47,10 @@
           />
         </div>
         <p class="text-black fs-5 fw-semibold font-family-Poppins col-10 m-0 px-3 py-2">
-          {{ $t("welcome") }}
+          {{ $t("welcome") }}, {{username}}
         </p>
       </div>
-      <ComponentSidebarLinks :links="modules" />
+      <ComponentSidebarLinks :links="modules"/>
     </div>
   </div>
 </template>
@@ -47,7 +60,6 @@
   position: relative;
   width: 300px;
 }
-
 
 
 p {

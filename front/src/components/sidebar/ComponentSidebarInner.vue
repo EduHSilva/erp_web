@@ -19,7 +19,7 @@ export default {
 <template>
   <div class="nav-bar rounded">
     <div class="container">
-      <a class="logo" href="/">
+      <a class="logo" href="/home">
         <div class="a-wrapper">
           <div class="a">A</div>
         </div>

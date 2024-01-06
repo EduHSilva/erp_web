@@ -4,24 +4,27 @@ import com.edu.erp.admin.config.security.TokenService;
 import com.edu.erp.admin.dtos.AuthDTO;
 import com.edu.erp.admin.dtos.LoginResponseDTO;
 import com.edu.erp.admin.models.AdminUsers;
+import com.edu.erp.admin.repositories.AdminUsersRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin("*")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
-    public AuthController(AuthenticationManager authenticationManager, TokenService tokenService) {
+    private final AdminUsersRepository repository;
+
+    public AuthController(AuthenticationManager authenticationManager, TokenService tokenService, AdminUsersRepository repository) {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
+        this.repository = repository;
     }
 
     @PostMapping("/login")
@@ -29,6 +32,7 @@ public class AuthController {
         var userNamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
         var auth = authenticationManager.authenticate(userNamePassword);
         var token = tokenService.generateToken((AdminUsers) auth.getPrincipal());
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        UserDetails user = repository.findByEmail(dto.email());
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getUsername()));
     }
 }

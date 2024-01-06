@@ -39,5 +39,6 @@
   "portuguese": "Portugues",
   "inactive": "Inativo",
   "password": "Senha",
-  "success": "Ação completada com sucesso"
+  "success": "Ação completada com sucesso",
+  "logout": "Sair"
 }
