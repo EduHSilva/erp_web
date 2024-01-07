@@ -9,6 +9,7 @@ import com.edu.erp.admin.models.AdminProfileAccess;
 import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.services.AdminModulesService;
 import com.edu.erp.admin.services.AdminProfileAccessService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
+@Tag(name = "Profiles")
 @RequestMapping("/admin")
 public class AdminProfileAccessController {
     private final AdminProfileAccessService service;

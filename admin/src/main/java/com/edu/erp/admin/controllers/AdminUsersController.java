@@ -3,6 +3,7 @@ package com.edu.erp.admin.controllers;
 import com.edu.erp.admin.dtos.AdminUsersRecordDTO;
 import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.services.AdminUsersService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
+@Tag(name = "Users")
 @RequestMapping("/admin")
 public class AdminUsersController {
 

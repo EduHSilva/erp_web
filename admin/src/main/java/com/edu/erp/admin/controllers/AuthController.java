@@ -5,6 +5,7 @@ import com.edu.erp.admin.dtos.AuthDTO;
 import com.edu.erp.admin.dtos.LoginResponseDTO;
 import com.edu.erp.admin.models.AdminUsers;
 import com.edu.erp.admin.repositories.AdminUsersRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
+@Tag(name = "Auth")
 @CrossOrigin("*")
 public class AuthController {
     private final AuthenticationManager authenticationManager;

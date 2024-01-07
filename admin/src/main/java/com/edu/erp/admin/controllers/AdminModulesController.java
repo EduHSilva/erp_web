@@ -3,6 +3,7 @@ package com.edu.erp.admin.controllers;
 import com.edu.erp.admin.dtos.AdminModuleDTO;
 import com.edu.erp.admin.models.AdminModules;
 import com.edu.erp.admin.services.AdminModulesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@Tag(name = "Modules")
 @CrossOrigin("*")
 @RequestMapping("/admin")
+
 public class AdminModulesController {
     private final AdminModulesService service;
 
