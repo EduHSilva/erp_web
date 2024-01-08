@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AdminUsersRepository extends JpaRepository<AdminUsers, UUID> {
-    UserDetails findByEmail(String email);
+    AdminUsers findByEmail(String email);
 
     Page<AdminUsers> findByDateDeletionIsNull(Pageable pageable);
 }

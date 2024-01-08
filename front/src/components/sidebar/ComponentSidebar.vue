@@ -1,5 +1,6 @@
 <script lang="ts">
 import ComponentSidebarLinks from "@/components/sidebar/ComponentSidebarLinks.vue";
+import * as Module from "module";
 
 export default {
   components: {ComponentSidebarLinks},
@@ -11,16 +12,6 @@ export default {
           description: "home",
           link: "/home"
         },
-        {
-          img: "/icons/admin.svg",
-          description: "admin",
-          link: "/admin"
-        },
-        {
-          img: "/icons/logout.svg",
-          description: "logout",
-          link: "/logout"
-        }
       ],
       username: ''
     }
@@ -31,7 +22,54 @@ export default {
       name = localStorage.getItem("username")
     }
     if (name != undefined) this.username = name;
+
+    let modules = localStorage.getItem("modules");
+    if (modules != null) {
+      let modulesArray = JSON.parse(modules)
+      if (this.isNameInArray('Admin', modulesArray)) {
+        this.modules.push(
+            {
+              img: "/icons/admin.svg",
+              description: "admin",
+              link: "/admin"
+            },
+        )
+      }
+      if (this.isNameInArray('Vendas', modulesArray)) {
+        this.modules.push(
+            {
+              img: "/icons/sales.svg",
+              description: "sales",
+              link: "/sales"
+            },
+        )
+      }
+      if (this.isNameInArray('Compras', modulesArray)) {
+        this.modules.push(
+            {
+              img: "/icons/shop.svg",
+              description: "shop",
+              link: "/shop"
+            },
+        )
+      }
+    }
+    this.modules.push({
+      img: "/icons/logout.svg",
+      description: "logout",
+      link: "/logout"
+    })
   },
+  methods: {
+    isNameInArray(nameToCheck: string, array: Array<Module>) {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].name.toLowerCase() === nameToCheck.toLowerCase()) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 }
 </script>
 
@@ -47,7 +85,7 @@ export default {
           />
         </div>
         <p class="text-black fs-5 fw-semibold font-family-Poppins col-10 m-0 px-3 py-2">
-          {{ $t("welcome") }}, {{username}}
+          {{ $t("welcome") }}, {{ username }}
         </p>
       </div>
       <ComponentSidebarLinks :links="modules"/>

@@ -23,9 +23,10 @@ public class AdminModulesService {
 
     @Transactional
     public AdminModules save(AdminModules adminModules) {
-        if (repository.findByNameAndDateDeletionIsNull(adminModules.getName()) == null)
+        if (repository.findByNameAndDateDeletionIsNull(adminModules.getName()) == null) {
+            adminModules.setDateCreated(new Date());
             return repository.save(adminModules);
-        else return null;
+        } else return null;
     }
 
     public Page<AdminModules> findAll(Pageable pageable) {

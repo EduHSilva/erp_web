@@ -31,4 +31,8 @@ public class SalesProducts implements Serializable {
     private Integer stock;
 
     private String img_url;
+
+    private Date dateCreated;
+
+    private Date dateDeletion;
 }

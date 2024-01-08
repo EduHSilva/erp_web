@@ -3,7 +3,7 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 import ComponentPagination from "@/components/ComponentPagination.vue";
-import DefaultTable from "@/components/ComponentDefaultTable.vue";
+import DefaultTable from "@/components/tables/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";

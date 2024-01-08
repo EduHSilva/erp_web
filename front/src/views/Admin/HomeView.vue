@@ -1,15 +1,13 @@
 <script lang="ts" setup>
 import ComponentSidebar from "@/components/sidebar/ComponentSidebar.vue";
 import ComponentHeader from "@/components/ComponentHeader.vue";
+import ComponentHome from "@/components/ComponentHome.vue";
 </script>
 
 <template>
-  <ComponentHeader />
-  <main>
-    <div class="col-3">
-      <ComponentSidebar />
-    </div>
-  </main>
+  <ComponentHome>
+
+  </ComponentHome>
 </template>
 
 

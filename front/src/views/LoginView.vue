@@ -20,6 +20,7 @@ export default {
       if (response != null) {
         localStorage.setItem('authToken', response.token);
         localStorage.setItem('username', response.username);
+        localStorage.setItem('modules', JSON.stringify(response.adminModules))
         this.$router.push('/home');
       } else {
         alert('Login falhou. Verifique suas credenciais.');

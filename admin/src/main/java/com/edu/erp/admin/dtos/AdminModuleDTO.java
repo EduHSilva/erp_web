@@ -4,11 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
 
-public record AdminModuleDTO(@NotBlank String name ,
-                                 Date dateCreated,
-                                 Date dateDeletion) {
+public record AdminModuleDTO(@NotBlank String name) {
 
     public AdminModuleDTO(String name) {
-        this(name, new Date(), null);
+        this.name = name;
     }
 }

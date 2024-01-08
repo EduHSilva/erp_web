@@ -40,5 +40,13 @@
   "inactive": "Inactive",
   "password": "Password",
   "success": "Action completed successfully",
-  "logout": "Logout"
+  "logout": "Logout",
+  "sales": "Sales",
+  "shop": "Shop",
+  "clients": "Client",
+  "sellers": "Sellers",
+  "products": "Products",
+  "orders": "Orders",
+  "costCenter": "Cost center",
+  "supplier": "Supplier"
 }

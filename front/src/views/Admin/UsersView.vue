@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ComponentTableUsers from "@/components/ComponentTableUsers.vue";
+import ComponentTableUsers from "@/components/tables/ComponentTableUsers.vue";
 
 import {useUserStore} from "@/store/modules/admin/userModule";
 import ComponentPagination from "@/components/ComponentPagination.vue";

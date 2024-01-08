@@ -29,6 +29,7 @@ public class AdminUsersService {
             BCryptPasswordEncoder cripto = new BCryptPasswordEncoder();
 
             userModel.setPassword(cripto.encode(userModel.getPassword()));
+            userModel.setDateCreated(new Date());
             userModel = adminUsersRepository.save(userModel);
             return userModel;
         }

@@ -40,5 +40,13 @@
   "inactive": "Inativo",
   "password": "Senha",
   "success": "Ação completada com sucesso",
-  "logout": "Sair"
+  "logout": "Sair",
+  "sales": "Vendas",
+  "shop": "Compras",
+  "clients": "Clientes",
+  "sellers": "Vendedores",
+  "products": "Produtos",
+  "orders": "Pedidos",
+  "costCenter": "Centro de custo",
+  "supplier": "Fornecedor"
 }

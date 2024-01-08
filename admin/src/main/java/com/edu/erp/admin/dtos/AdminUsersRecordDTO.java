@@ -25,10 +25,6 @@ public record AdminUsersRecordDTO(
 
         @NotNull Status status,
 
-        Date dateCreated,
-
-        Date dateDeletion,
-
         @NotNull boolean admin,
 
         @NotBlank @Length(min = 8) String password,

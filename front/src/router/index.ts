@@ -4,9 +4,15 @@ import HomeView from "@/views/Admin/HomeView.vue";
 import AdminView from "@/views/Admin/AdminView.vue";
 import ModulesView from "@/views/Admin/ModulesView.vue";
 import ProfilesView from "@/views/Admin/ProfilesView.vue";
-import ProfileForm from "@/views/Forms/ProfileForm.vue";
-import UserForm from "@/views/Forms/UserForm.vue";
+import ProfileForm from "@/views/Admin/Forms/ProfileForm.vue";
+import UserForm from "@/views/Admin/Forms/UserForm.vue";
 import LoginView from "@/views/LoginView.vue";
+import SalesView from "@/views/Sales/SalesView.vue";
+import ShopView from "@/views/Shop/ShopView.vue";
+import loginRoutes from "@/router/modules/loginRoutes";
+import adminRoutes from "@/router/modules/adminRoutes";
+import salesRoutes from "@/router/modules/salesRoutes";
+import shopRoutes from "@/router/modules/shopRoutes";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,58 +22,17 @@ const router = createRouter({
             name: 'home',
             component: HomeView,
         },
-        {
-            path: '/admin',
-            name: 'admin',
-            component: AdminView
-        },
-        {
-            path: '/admin/modules',
-            name: 'modules',
-            component: ModulesView,
-        },
-        {
-            path: '/admin/profiles',
-            name: 'profiles',
-            component: ProfilesView,
-        },
-        {
-            path: '/admin/user/:id?',
-            name: 'userAddEdit',
-            component: UserForm,
-        },
-        {
-            path: '/admin/users',
-            name: 'users',
-            component: UsersView
-        },
-        {
-            path: '/admin/profile/:id?',
-            name: 'profileAddEdit',
-            component: ProfileForm,
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: LoginView,
-        },
-        {
-            path: "/logout",
-            name: "logout",
-            beforeEnter: (to, from, next) => {
-                localStorage.clear();
-
-                next({path: '/login'});
-            },
-            component: LoginView
-        }
+        ...adminRoutes,
+        ...salesRoutes,
+        ...shopRoutes,
+        ...loginRoutes
     ],
 
     linkExactActiveClass: 'bg-light',
 
 })
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
     if (localStorage.getItem('authToken') == null && to.name !== 'login') {
         return {name: 'login'}
     }

@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,11 +26,13 @@ public class SalesOrders implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private Date date;
+    private Date dateCreated;
+
+    private Date dateDeletion;
 
     private StatusOrder statusOrder;
 
-    private Double commision;
+    private Double commission;
 
     private Date dueDate;
 
@@ -40,5 +43,8 @@ public class SalesOrders implements Serializable {
 
     @OneToOne
     private SalesPersons client;
+
+    @OneToMany
+    private List<SalesOrderItems> items;
 
 }

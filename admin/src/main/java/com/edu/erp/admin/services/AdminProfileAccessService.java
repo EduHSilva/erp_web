@@ -31,6 +31,7 @@ public class AdminProfileAccessService {
     }
 
     public AdminProfileAccess save(AdminProfileAccess adminProfileAccess) {
+        adminProfileAccess.setDateCreated(new Date());
         return repository.save(adminProfileAccess);
     }
 

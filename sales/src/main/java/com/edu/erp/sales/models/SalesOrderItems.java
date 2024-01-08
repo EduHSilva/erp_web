@@ -25,7 +25,7 @@ public class SalesOrderItems implements Serializable {
 
     private Integer quantity;
 
-    private Double price_unit;
+    private Double priceUnit;
 
     private Double subTotal;
 

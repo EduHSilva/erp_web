@@ -1,7 +1,7 @@
 <script lang="ts">
-import type User from "../store/types/user"
+import type User from "../../store/types/user"
 import util from '@/mixins/util'
-import ComponentActionsTable from "@/components/ComponentActionsTable.vue";
+import ComponentActionsTable from "@/components/tables/ComponentActionsTable.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
 
 export default {

@@ -7,25 +7,32 @@ import ComponentHome from "@/components/ComponentHome.vue";
 <template>
   <ComponentHome>
     <div class="card">
-      <h2 class="p-lg-5"> {{ $t("administration") }} </h2>
+      <h2 class="p-lg-5"> {{ $t("shop") }} </h2>
 
       <div class="card-body d-flex justify-content-around">
 
-        <router-link to="/admin/modules" class="card-item bg-light">
+
+        <router-link to="/shop/cost" class="card-item bg-light">
           <div class="card-inner">
-            <h5 class="card-title"> {{ $t("modules") }}</h5>
+            <h5 class="card-title"> {{ $t("costCenter") }}</h5>
           </div>
         </router-link>
 
-        <router-link to="/admin/profiles" class="card-item bg-light">
+        <router-link to="/shop/suppliers" class="card-item bg-light">
           <div class="card-inner">
-            <h5 class="card-title"> {{ $t("profileAccess") }}</h5>
+            <h5 class="card-title"> {{ $t("supplier") }}</h5>
           </div>
         </router-link>
 
-        <router-link to="/admin/users" class="card-item bg-light">
+        <router-link to="/shop/products" class="card-item bg-light">
           <div class="card-inner">
-            <h5 class="card-title"> {{ $t("users") }}</h5>
+            <h5 class="card-title"> {{ $t("products") }}</h5>
+          </div>
+        </router-link>
+
+        <router-link to="/sales/orders" class="card-item bg-light">
+          <div class="card-inner">
+            <h5 class="card-title"> {{ $t("orders") }}</h5>
           </div>
         </router-link>
       </div>

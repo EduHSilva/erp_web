@@ -1,7 +1,7 @@
 <script lang="ts">
 import util from '@/mixins/util'
 import type Module from "@/store/types/module";
-import ActionsTableComponent from "@/components/ComponentActionsTable.vue";
+import ActionsTableComponent from "@/components/tables/ComponentActionsTable.vue";
 
 export default {
   components: {ActionsTableComponent},
