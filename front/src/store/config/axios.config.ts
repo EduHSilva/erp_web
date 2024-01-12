@@ -9,4 +9,11 @@ const axiosAdminInstance = axios.create({
     }
 });
 
-export {axiosAdminInstance};
+const axiosSalesInstance = axios.create({
+    baseURL: `${import.meta.env.VITE_SALES_URL}`,
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+});
+
+export {axiosAdminInstance, axiosSalesInstance};

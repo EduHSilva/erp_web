@@ -1,9 +1,7 @@
 package com.edu.erp.sales.controllers;
 
 import com.edu.erp.sales.dto.SalesPersonDTO;
-import com.edu.erp.sales.models.SalesCities;
 import com.edu.erp.sales.models.SalesPersons;
-import com.edu.erp.sales.repositories.SalesCitiesRepository;
 import com.edu.erp.sales.services.SalesPersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -39,12 +36,18 @@ public class SalesPersonController {
         return ResponseEntity.ok(service.findSellers(pageable));
     }
 
+
     @PostMapping()
     public ResponseEntity<SalesPersons> save(@RequestBody @Valid SalesPersonDTO dto) {
         SalesPersons person = new SalesPersons();
         BeanUtils.copyProperties(dto, person);
 
         return ResponseEntity.ok(service.save(person));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SalesPersons> getOne(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.getOne(id));
     }
 
     @DeleteMapping("/{id}")

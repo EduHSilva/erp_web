@@ -1,8 +1,8 @@
 package com.edu.erp.sales.services;
 
 import com.edu.erp.sales.dto.SalesPersonDTO;
+import com.edu.erp.sales.enums.Status;
 import com.edu.erp.sales.enums.TypePerson;
-import com.edu.erp.sales.models.SalesCities;
 import com.edu.erp.sales.models.SalesPersons;
 import com.edu.erp.sales.repositories.SalesPersonsRepository;
 import org.springframework.beans.BeanUtils;
@@ -34,9 +34,8 @@ public class SalesPersonService {
     }
 
     public SalesPersons save(SalesPersons person) {
-        if (repository.existsByEmail(person.getEmail())) {
+        if (!repository.existsByEmail(person.getEmail())) {
             person.setDateCreated(new Date());
-
             return repository.save(person);
         } else return null;
     }
@@ -64,5 +63,10 @@ public class SalesPersonService {
             }
         }
         return null;
+    }
+
+    public SalesPersons getOne(UUID id) {
+        Optional<SalesPersons> person = repository.findById(id);
+        return person.orElse(null);
     }
 }

@@ -9,11 +9,14 @@ import DefaultTable from "@/components/tables/ComponentDefaultTable.vue";
 import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
+import ComponentTable from "@/components/tables/ComponentTable.vue";
 
 const store = useModulesStore()
 store.get(0)
 </script>
 <script lang="ts">
+import util from "@/mixins/util";
+
 export default {
   data() {
     return {
@@ -22,7 +25,8 @@ export default {
         id: "",
         name: ""
       },
-      deleteId: ''
+      deleteId: '',
+      tableHeader: ["name", "dateCreated"]
     }
   },
   methods: {
@@ -32,27 +36,15 @@ export default {
         name: ""
       }
     },
-    openModalEdit(id: string, name: string) {
-      this.editing = {
-        id, name
-      }
-    },
-    openConfirmDeleteModal(id: string) {
-      this.deleteId = id;
-    },
     changeName(event: any) {
       this.editing.name = event.target.value
     }
-  }
+  },
+  mixins: [util]
 }
 </script>
 
 <template>
-  <ModalForm @save="store.save(editing.id, editing.name)" :id="editing.id" :name="editing.name"
-             @change="changeName" text="newModule"/>
-  <ModalConfirm @delete="store.delete(deleteId)"/>
-  <ComponentToastSuccess message="success"/>
-  <ComponentToastError/>
   <ComponentHeader inner :text="text"/>
   <main>
     <div class="col-3">
@@ -61,16 +53,14 @@ export default {
     <div class="col-8 card ">
       <div class="card-header">
         <h2 class="text-center py-2">{{ $t("modules") }}</h2>
-        <button type="button" class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#addModal"
-                @click="openModalSave"
-        >
-          {{ $t("add") }}
-        </button>
       </div>
       <div class="card-body">
-        <DefaultTable :modal="true" :data="store.modules" :edit="openModalEdit" :delete-action="openConfirmDeleteModal"/>
+        <ComponentTable :table-header="tableHeader" :table-data="store.modules">
+          <tr v-for="d in store.modules">
+            <td>{{ d.name }}</td>
+            <td>{{formatDate(d.dateCreated) }}</td>
+          </tr>
+        </ComponentTable>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>

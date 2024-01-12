@@ -13,6 +13,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
+import java.util.Date;
+
 @GroupSequenceProvider(PersonGroupSequenceProvider.class)
 public record SalesPersonDTO(
         @NotBlank String name,
@@ -22,7 +24,9 @@ public record SalesPersonDTO(
         @NotNull TypePerson type,
         @NotBlank @Email String email,
         @NotBlank String phone,
-        @NotNull SalesCities city
+        @NotNull SalesCities city,
+
+        Date dateCreated
 ) {
 }
 

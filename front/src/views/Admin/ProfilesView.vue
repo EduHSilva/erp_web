@@ -8,11 +8,15 @@ import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
 import {useProfileStore} from "@/store/modules/admin/profilesModule";
+import ActionsTableComponent from "@/components/tables/ComponentActionsTable.vue";
+import ComponentTable from "@/components/tables/ComponentTable.vue";
 
 const store = useProfileStore()
 store.get(0)
 </script>
 <script lang="ts">
+import util from "@/mixins/util";
+
 export default {
   data() {
     return {
@@ -22,7 +26,8 @@ export default {
         name: ""
       },
       deleteId: '',
-      links: []
+      links: [],
+      tableHeader: ["name", "dateCreated", "actions"]
     }
   },
   methods: {
@@ -32,7 +37,8 @@ export default {
     openConfirmDeleteModal(id: string) {
       this.deleteId = id;
     },
-  }
+  },
+  mixins: [util]
 }
 </script>
 
@@ -50,7 +56,13 @@ export default {
         <h2 class="text-center py-2">{{ $t("profiles") }}</h2>
       </div>
       <div class="card-body">
-        <DefaultTable :modal="false" :data="store.profiles" :edit="openEdit" :delete-action="openConfirmDeleteModal"/>
+        <ComponentTable :table-header="tableHeader" :table-data="store.profiles">
+          <tr v-for="d in store.profiles">
+            <td>{{ d.name }}</td>
+            <td>{{ formatDate(d.dateCreated) }}</td>
+            <ActionsTableComponent :modal="false" :data="d" @edit="openEdit" @delete="openConfirmDeleteModal"/>
+          </tr>
+        </ComponentTable>
       </div>
       <div class="card-footer">
         <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>

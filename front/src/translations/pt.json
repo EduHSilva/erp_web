@@ -48,5 +48,11 @@
   "products": "Produtos",
   "orders": "Pedidos",
   "costCenter": "Centro de custo",
-  "supplier": "Fornecedor"
+  "supplier": "Fornecedor",
+  "city": "Cidade",
+  "state": "Estado",
+  "type": "Tipo",
+  "cnpj": "CNPJ",
+  "pf": "Pessoa física",
+  "pj": "Pessoa juridica"
 }

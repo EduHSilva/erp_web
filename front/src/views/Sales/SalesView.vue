@@ -10,13 +10,13 @@ import ComponentHome from "@/components/ComponentHome.vue";
       <h2 class="p-lg-5"> {{ $t("sales") }} </h2>
 
       <div class="card-body d-flex justify-content-around">
-        <router-link to="/sales/clients" class="card-item bg-light">
+        <router-link to="/sales/persons/clients" class="card-item bg-light">
           <div class="card-inner">
             <h5 class="card-title"> {{ $t("clients") }}</h5>
           </div>
         </router-link>
 
-        <router-link to="/sales/sellers" class="card-item bg-light">
+        <router-link to="/sales/persons/sellers" class="card-item bg-light">
           <div class="card-inner">
             <h5 class="card-title"> {{ $t("sellers") }}</h5>
           </div>

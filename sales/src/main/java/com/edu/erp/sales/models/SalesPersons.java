@@ -40,6 +40,6 @@ public class SalesPersons implements Serializable {
 
     private String phone;
 
-    @OneToOne
+    @ManyToOne
     private SalesCities city;
 }
