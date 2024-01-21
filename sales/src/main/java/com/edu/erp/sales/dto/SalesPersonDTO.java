@@ -24,7 +24,7 @@ public record SalesPersonDTO(
         @NotNull TypePerson type,
         @NotBlank @Email String email,
         @NotBlank String phone,
-        @NotNull SalesCities city,
+        SalesCities city,
 
         Date dateCreated
 ) {

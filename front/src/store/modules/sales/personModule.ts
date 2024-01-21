@@ -8,9 +8,11 @@ import type City from "@/store/types/city";
 
 interface State {
     clientList: Person[],
+    sellersList: Person[],
     totalPages: 0,
     page: 0,
     links: LinkSidebar[],
+    linksSeller: LinkSidebar[],
     cities: Array<City>
 }
 
@@ -18,6 +20,7 @@ export const usePersonStore = defineStore('client', {
     state: (): State => {
         return {
             clientList: [],
+            sellersList: [],
             totalPages: 0,
             page: 0,
             cities: [],
@@ -32,6 +35,13 @@ export const usePersonStore = defineStore('client', {
                     description: "add",
                     link: "/sales/persons"
                 }
+            ],
+            linksSeller: [
+                {
+                    img: "/icons/list.svg",
+                    description: "list",
+                    link: "/sales/persons/sellers"
+                },
             ]
         }
     },
@@ -40,6 +50,16 @@ export const usePersonStore = defineStore('client', {
             try {
                 let response = await axiosSalesInstance(`sales/persons/clients?page=${index}&sort=dateCreated,asc`)
                 this.clientList = response.data.content
+                this.totalPages = response.data.totalPages
+                this.page = response.data.number
+            } catch (e) {
+                util.methods.showToastError();
+            }
+        },
+        async getSellers(index: number) {
+            try {
+                let response = await axiosSalesInstance(`sales/persons/sellers?page=${index}&sort=dateCreated,asc`)
+                this.sellersList = response.data.content
                 this.totalPages = response.data.totalPages
                 this.page = response.data.number
             } catch (e) {

@@ -1,6 +1,7 @@
 package com.edu.erp.sales.services;
 
 import com.edu.erp.sales.dto.SalesPersonDTO;
+import com.edu.erp.sales.dto.SellerCheckDTO;
 import com.edu.erp.sales.enums.Status;
 import com.edu.erp.sales.enums.TypePerson;
 import com.edu.erp.sales.models.SalesPersons;
@@ -68,5 +69,21 @@ public class SalesPersonService {
     public SalesPersons getOne(UUID id) {
         Optional<SalesPersons> person = repository.findById(id);
         return person.orElse(null);
+    }
+
+    public SalesPersons checkSeller(SalesPersons dto, boolean active) {
+        SalesPersons seller = repository.findByEmailAndType(dto.getEmail(), TypePerson.SELLER);
+        if (seller != null) {
+            seller.setStatus(active ? Status.ACTIVE : Status.INACTIVE);
+            return repository.save(seller);
+        } else if (active) {
+            seller = new SalesPersons();
+            BeanUtils.copyProperties(dto, seller);
+            seller.setStatus(active ? Status.ACTIVE : Status.INACTIVE);
+            seller.setType(TypePerson.SELLER);
+            return repository.save(seller);
+        } else {
+            return null;
+        }
     }
 }

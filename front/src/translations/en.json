@@ -9,7 +9,7 @@
   "email": "E-mail",
   "status": "Status",
   "dateCreated": "Data created",
-  "home" : "Home",
+  "home": "Home",
   "admin": "Admin",
   "welcome": "Welcome",
   "profile": "Profile",
@@ -54,5 +54,16 @@
   "type": "Type",
   "cnpj": "CNPJ",
   "pf": "Individual",
-  "pj": "Legal entity"
+  "pj": "Legal entity",
+  "description": "Description",
+  "price": "Price",
+  "stock": "Stock",
+  "image": "Image",
+  "client": "Client",
+  "quantity": "Quantity",
+  "total": "Total",
+  "qtd": "Qtd.",
+  "subtotal": "Subtotal",
+  "dueDate": "Due Date",
+  "seller": "Seller"
 }

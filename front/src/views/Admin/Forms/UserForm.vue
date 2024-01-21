@@ -121,12 +121,21 @@ export default {
               <input class="form-control input" name="password" :placeholder="$t('password')"
                      type="password" v-model="user.password" :disabled="edit" required minlength="8">
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" :checked="user.admin" v-model="user.admin">
-              <label class="form-check-label" for="flexCheckDefault">
-                {{ $t("admin") }}
-              </label>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" :checked="user.admin" v-model="user.admin">
+                <label class="form-check-label" for="flexCheckDefault">
+                  {{ $t("admin") }}
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" :checked="user.seller" v-model="user.seller">
+                <label class="form-check-label" for="flexCheckDefault">
+                  {{ $t("seller") }}
+                </label>
+              </div>
             </div>
+
 
           </div>
         </div>

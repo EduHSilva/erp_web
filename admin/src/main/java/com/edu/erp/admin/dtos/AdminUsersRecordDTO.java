@@ -27,6 +27,8 @@ public record AdminUsersRecordDTO(
 
         @NotNull boolean admin,
 
+        @NotNull boolean seller,
+
         @NotBlank @Length(min = 8) String password,
 
         String phone,

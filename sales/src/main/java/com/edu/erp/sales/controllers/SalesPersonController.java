@@ -1,6 +1,7 @@
 package com.edu.erp.sales.controllers;
 
 import com.edu.erp.sales.dto.SalesPersonDTO;
+import com.edu.erp.sales.dto.SellerCheckDTO;
 import com.edu.erp.sales.models.SalesPersons;
 import com.edu.erp.sales.services.SalesPersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +35,13 @@ public class SalesPersonController {
     @GetMapping("/sellers")
     public ResponseEntity<Page<SalesPersons>> getSellers(Pageable pageable) {
         return ResponseEntity.ok(service.findSellers(pageable));
+    }
+
+    @PostMapping("/sellers/{active}")
+    public ResponseEntity<SalesPersons> checkSeller(@RequestBody SalesPersonDTO dto, @PathVariable boolean active) {
+        SalesPersons person = new SalesPersons();
+        BeanUtils.copyProperties(dto, person);
+        return ResponseEntity.ok(service.checkSeller(person, active));
     }
 
 

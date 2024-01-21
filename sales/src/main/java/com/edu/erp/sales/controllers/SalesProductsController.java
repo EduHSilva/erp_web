@@ -7,15 +7,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
 @RestController
 @Tag(name = "Products")
 @CrossOrigin("*")
-@RequestMapping("/sales/products")
+@RequestMapping("/sales")
 public class SalesProductsController {
 
     private final SalesProductsService service;
@@ -25,21 +27,26 @@ public class SalesProductsController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<Page<SalesProducts>> getSellers(Pageable pageable) {
+    public ResponseEntity<Page<SalesProducts>> get(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
-    @PostMapping()
+    @GetMapping("/product/{id}")
+    public ResponseEntity<SalesProducts> getOne(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.findOne(id));
+    }
+
+    @PostMapping("/products")
     public ResponseEntity<SalesProducts> save(@RequestBody @Valid SalesProductDTO dto) {
         return ResponseEntity.ok(service.save(dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/product/{id}")
     public ResponseEntity delete(@PathVariable UUID id) {
         return ResponseEntity.ok(service.delete(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/product/{id}")
     public ResponseEntity<SalesProducts> update(@PathVariable UUID id, @Valid @RequestBody SalesProductDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }

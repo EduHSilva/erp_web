@@ -10,6 +10,7 @@ export default interface User {
     cpf: string,
     phone: string,
     admin: boolean,
+    seller: boolean,
     language: string,
     password: string
 }

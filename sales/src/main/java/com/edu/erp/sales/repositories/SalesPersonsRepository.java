@@ -13,4 +13,6 @@ public interface SalesPersonsRepository extends JpaRepository<SalesPersons, UUID
     Page<SalesPersons> findByDateDeletionIsNullAndTypeIn(Pageable pageable, List<TypePerson> type);
 
     boolean existsByEmail(String email);
+
+    SalesPersons findByEmailAndType(String email, TypePerson typePerson);
 }

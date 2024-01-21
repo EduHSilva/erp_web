@@ -54,5 +54,16 @@
   "type": "Tipo",
   "cnpj": "CNPJ",
   "pf": "Pessoa física",
-  "pj": "Pessoa juridica"
+  "pj": "Pessoa juridica",
+  "description": "Descrição",
+  "price": "Preço",
+  "stock": "Estoque",
+  "image": "Imagem",
+  "client": "Cliente",
+  "quantity": "Quantidade",
+  "total": "Total",
+  "qtd": "Qtd.",
+  "subtotal": "Subtotal",
+  "dueDate": "Data entrega",
+  "seller": "Vendedor"
 }

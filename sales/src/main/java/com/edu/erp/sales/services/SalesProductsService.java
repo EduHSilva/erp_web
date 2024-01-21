@@ -7,7 +7,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,6 +26,11 @@ public class SalesProductsService {
 
     public Page<SalesProducts> findAll(Pageable pageable) {
         return repository.findByDateDeletionIsNull(pageable);
+    }
+
+    public SalesProducts findOne(UUID id) {
+        Optional<SalesProducts> product = repository.findById(id);
+        return product.orElse(null);
     }
 
     public SalesProducts save(SalesProductDTO productDTO) {

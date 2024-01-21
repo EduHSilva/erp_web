@@ -46,6 +46,8 @@ public class AdminUsers implements Serializable, UserDetails {
 
     private boolean admin;
 
+    private boolean seller;
+
     private String email;
 
     private String password;
@@ -57,7 +59,8 @@ public class AdminUsers implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.admin) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.admin)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 

@@ -1,5 +1,6 @@
 package com.edu.erp.sales.models;
 
+import com.edu.erp.sales.enums.StatusProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,8 @@ public class SalesProducts implements Serializable {
     private Integer stock;
 
     private String img_url;
+
+    private StatusProduct status;
 
     private Date dateCreated;
 
