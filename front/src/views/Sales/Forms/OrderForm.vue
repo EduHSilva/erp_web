@@ -21,9 +21,12 @@ export default {
       this.order = JSON.parse(JSON.stringify(this.orderOriginal)) as Order;
       this.text.push("edit")
       this.edit = true
+      this.sellerSearch = this.order.seller.name
+      this.clientSearch = this.order.client.name
+      this.products = this.order.items
     } else {
       this.order.dateCreated = new Date()
-      this.order.products = []
+      this.order.items = []
       this.order.total = 0
       this.text.push("add")
     }
@@ -64,11 +67,11 @@ export default {
     },
     async getSellers() {
       await usePersonStore().getSellers(-1)
-      this.clients = usePersonStore().sellersList
+      this.sellers = usePersonStore().sellersList
       this.getSeller()
     },
     getSeller() {
-      const seller: Person | undefined = this.clients.find((seller: Person) => seller.name === this.sellerSearch);
+      const seller: Person | undefined = this.sellers.find((seller: Person) => seller.name === this.sellerSearch);
       if (seller !== undefined) {
         this.order.seller = seller;
       }
@@ -81,19 +84,22 @@ export default {
       const product: Product | undefined = this.products.find((product: Product) => product.name === this.productsSearch);
       if (product) {
         let productOrder = {} as ProductOrder
-        productOrder.product = product
-        productOrder.price_unit = product.price
+        productOrder.productID = product.id
+        productOrder.product = product;
+        productOrder.priceUnit = product.price
         productOrder.quantity = this.quantity
-        productOrder.subtotal = productOrder.quantity * productOrder.price_unit
+        if (this.edit) {
+          productOrder.productID = this.orderOriginal.id
+        }
 
-        this.order.products.push(productOrder);
+        this.order.items.push(productOrder);
         this.updateTotal()
       }
     },
     updateTotal() {
       let total = 0;
-      this.order.products.forEach(e => {
-        total += e.subtotal
+      this.order.items.forEach(e => {
+        total += e.quantity * e.priceUnit
       })
       this.order.total = total
     }
@@ -129,7 +135,7 @@ export default {
               </datalist>
             </div>
             <div class="mb-3">
-              <label for="client" class="form-label">{{ $t("seller") }}</label>
+              <label for="sellers" class="form-label">{{ $t("seller") }}</label>
               <input class="form-control" list="dataSellers" v-model="sellerSearch" @keydown="getSellers"
                      placeholder="Type to search...">
               <datalist id="dataSellers">
@@ -137,12 +143,16 @@ export default {
               </datalist>
             </div>
             <div class="mb-3">
+              <label for="date" class="form-label">{{ $t("commission") }}</label>
+              <input type="text" class="form-control" v-model="order.commission">
+            </div>
+            <div class="mb-3">
               <label for="date" class="form-label">{{ $t("dateCreated") }}</label>
               <input type="text" disabled class="form-control" :value="formatDate(order.dateCreated)">
             </div>
             <div class="mb-3">
               <label for="dueDate" class="form-label">{{ $t("dueDate") }}</label>
-              <input type="date" class="form-control" v-model="order.dueDate">
+              <input type="text" class="form-control" v-model="order.dueDate">
             </div>
           </div>
           <div class="col p-3">
@@ -180,7 +190,7 @@ export default {
                 <span class="fw-bold"> {{ $t("subtotal") }}</span>
               </div>
             </div>
-            <div v-for="product in order.products" class="d-flex justify-content-sm-between col-12">
+            <div v-for="product in order.items" class="d-flex justify-content-sm-between col-12">
               <div class="col-6">
                 <span> {{ product.product.name }}</span>
               </div>
@@ -191,7 +201,7 @@ export default {
                 <span> {{ product.quantity }}</span>
               </div>
               <div class="col-2">
-                <span> {{ product.subtotal }}</span>
+                <span> {{ product.priceUnit * product.quantity }}</span>
               </div>
             </div>
             <hr>

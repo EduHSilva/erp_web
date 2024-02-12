@@ -1,6 +1,6 @@
 package com.edu.erp.sales.models;
 
-import com.edu.erp.sales.enums.StatusOrder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +28,8 @@ public class SalesOrderItems implements Serializable {
 
     private Double subTotal;
 
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne
     SalesOrders order;
 
     @ManyToOne

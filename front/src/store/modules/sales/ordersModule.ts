@@ -68,7 +68,7 @@ export const useOrderStore = defineStore('order', {
                 if (order.id != undefined && order.id.trim() != "") {
                     await axiosSalesInstance.put(`sales/order/${order.id}`, order)
                 } else {
-                    order.status = "PENDENT";
+                    order.statusOrder = "PENDENT";
                     await axiosSalesInstance.post(`sales/orders`, order)
                 }
                 util.methods.showToastSuccess(() => window.location.href = "/sales/orders");

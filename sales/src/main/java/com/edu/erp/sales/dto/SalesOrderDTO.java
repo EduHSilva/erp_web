@@ -21,6 +21,6 @@ public record SalesOrderDTO(
 
         @NotNull SalesPersons client,
 
-        @NotEmpty List<SalesOrderItems> products
+        @NotEmpty List<SalesOrderItemDTO> items
 ) {
 }

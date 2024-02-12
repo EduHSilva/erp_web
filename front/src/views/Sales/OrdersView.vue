@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       text: ["sales", "orders", "list"],
-      tableHeader: ["order", "status", "total", "actions"],
+      tableHeader: ["order", "status", "client", "dueDate", "total", "actions"],
       deleteId: ""
     }
   },
@@ -51,11 +51,12 @@ export default {
         <ComponentTable :table-header="tableHeader" :table-data="store.ordersList">
           <tr v-for="order in store.ordersList">
             <td>{{ order.id }}</td>
-            <td><span class="badge" :class="order.status == 'ACTIVE' ? 'text-bg-success' : 'text-bg-danger'">
-            {{ formatStatus(order.status, $t) }}
+            <td><span class="badge" :class="order.statusOrder == 'ACTIVE' ? 'text-bg-success' : 'text-bg-warning'">
+            {{ formatStatus(order.statusOrder, $t) }}
           </span></td>
+            <td>{{ order.client.name }}</td>
+            <td>{{ formatDate(order.dueDate) }}</td>
             <td>{{ order.total }}</td>
-            <td>{{ order.client }}</td>
             <ComponentActionsTable :modal="false" @edit="openEdit" @delete="openConfirmDeleteModal" :data="order"/>
           </tr>
         </ComponentTable>

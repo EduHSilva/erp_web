@@ -10,6 +10,8 @@ export default {
                     return $t("active")
                 case "INACTIVE":
                     return $t("inactive")
+                case "PENDENT":
+                    return $t("pendent")
             }
         },
         showToastError() {

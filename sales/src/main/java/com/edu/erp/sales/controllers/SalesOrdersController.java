@@ -20,7 +20,7 @@ import java.util.UUID;
 @RestController
 @Tag(name = "Orders")
 @CrossOrigin("*")
-@RequestMapping("/sales/orders")
+@RequestMapping("/sales")
 public class SalesOrdersController {
 
     private final SalesOrdersService service;
@@ -30,37 +30,42 @@ public class SalesOrdersController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping("/orders")
     public ResponseEntity<Page<SalesOrders>> getOrders(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
-    @PostMapping()
+    @GetMapping("/order/{id}")
+    public ResponseEntity<SalesOrders> getOrder(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.findOne(id));
+    }
+
+    @PostMapping("/orders")
     public ResponseEntity<SalesOrders> save(@RequestBody @Valid SalesOrderDTO dto) {
         return ResponseEntity.ok(service.save(dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/order/{id}")
     public ResponseEntity delete(@PathVariable UUID id) {
         return ResponseEntity.ok(service.delete(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/order/{id}")
     public ResponseEntity<SalesOrders> update(@PathVariable UUID id, @Valid @RequestBody SalesOrderDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @PostMapping("/item")
+    @PostMapping("/orders/item")
     public ResponseEntity<SalesOrderItems> addItem(@Valid @RequestBody SalesOrderItemDTO dto) {
         return ResponseEntity.ok(service.addItem(dto));
     }
 
-    @PutMapping("/item/{id}")
+    @PutMapping("/orders/item/{id}")
     public ResponseEntity<SalesOrderItems> editItem(@PathVariable UUID id, @Valid @RequestBody SalesOrderItemDTO dto) {
         return ResponseEntity.ok(service.editItem(id, dto));
     }
 
-    @DeleteMapping("/item/{id}")
+    @DeleteMapping("/orders/item/{id}")
     public ResponseEntity removeItem(@PathVariable UUID id) {
         return ResponseEntity.ok(service.removeItem(id));
     }

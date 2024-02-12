@@ -3,11 +3,12 @@ import type Person from "@/store/types/person";
 
 export default interface Order {
     id: string,
-    status: string,
+    statusOrder: string,
     total: number,
     client: Person,
     seller: Person,
-    products: Array<ProductOrder>
+    items: Array<ProductOrder>
     dateCreated: Date,
-    dueDate: Date
+    dueDate: Date,
+    commission: number
 }

@@ -65,5 +65,7 @@
   "qtd": "Qtd.",
   "subtotal": "Subtotal",
   "dueDate": "Due Date",
-  "seller": "Seller"
+  "seller": "Seller",
+  "order": "Order",
+  "commission": "Comission"
 }

@@ -5,6 +5,7 @@ import com.edu.erp.sales.dto.SalesOrderItemDTO;
 import com.edu.erp.sales.dto.SalesProductDTO;
 import com.edu.erp.sales.models.SalesOrderItems;
 import com.edu.erp.sales.models.SalesOrders;
+import com.edu.erp.sales.models.SalesPersons;
 import com.edu.erp.sales.models.SalesProducts;
 import com.edu.erp.sales.repositories.SalesOrderItemsRepository;
 import com.edu.erp.sales.repositories.SalesOrdersRepository;
@@ -15,9 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SalesOrdersService {
@@ -38,11 +37,18 @@ public class SalesOrdersService {
         return ordersRepository.findByDateDeletionIsNull(pageable);
     }
 
+    @Transactional
     public SalesOrders save(SalesOrderDTO orderDTO) {
         SalesOrders order = new SalesOrders();
         BeanUtils.copyProperties(orderDTO, order);
         order.setDateCreated(new Date());
-        return ordersRepository.save(order);
+
+        SalesOrders orderSaved = ordersRepository.save(order);
+        for (SalesOrderItemDTO item : orderDTO.items()) {
+            addItem(item, orderSaved);
+        }
+
+        return orderSaved;
     }
 
     public boolean delete(UUID id) {
@@ -67,12 +73,23 @@ public class SalesOrdersService {
         return null;
     }
 
+    public SalesOrders findOne(UUID id) {
+        Optional<SalesOrders> order = ordersRepository.findById(id);
+        return order.orElse(null);
+    }
+
     @Transactional
     public SalesOrderItems addItem(SalesOrderItemDTO dto) {
+        return addItem(dto, null);
+    }
+
+    @Transactional
+    public SalesOrderItems addItem(SalesOrderItemDTO dto, SalesOrders order) {
         SalesOrderItems item = new SalesOrderItems();
-        if (productRepository.existsById(dto.productID()) && ordersRepository.existsById(dto.orderID())) {
+        UUID orderID = order == null ? dto.orderID() : order.getId();
+        if (productRepository.existsById(dto.productID()) && ordersRepository.existsById(orderID)) {
             item.setProduct(productRepository.getReferenceById(dto.productID()));
-            item.setOrder(ordersRepository.getReferenceById(dto.orderID()));
+            item.setOrder(ordersRepository.getReferenceById(orderID));
             item.setQuantity(dto.quantity());
             item.setPriceUnit(dto.priceUnit());
             item.setSubTotal(dto.priceUnit() * dto.quantity());

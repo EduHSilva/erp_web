@@ -65,5 +65,7 @@
   "qtd": "Qtd.",
   "subtotal": "Subtotal",
   "dueDate": "Data entrega",
-  "seller": "Vendedor"
+  "seller": "Vendedor",
+  "order": "Pedido",
+  "commission": "Comissão"
 }

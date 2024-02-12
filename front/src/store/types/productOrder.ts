@@ -1,8 +1,9 @@
 import type Product from "@/store/types/product";
 
 export default interface ProductOrder {
+    productID: string,
     product: Product,
-    price_unit: number,
+    orderID: string,
+    priceUnit: number,
     quantity: number,
-    subtotal: number
 }

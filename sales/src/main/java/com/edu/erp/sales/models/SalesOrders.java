@@ -38,13 +38,16 @@ public class SalesOrders implements Serializable {
 
     private Double total;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
     private SalesPersons seller;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
     private SalesPersons client;
 
-    @OneToMany
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private List<SalesOrderItems> items;
 
 }
