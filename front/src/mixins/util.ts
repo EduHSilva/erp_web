@@ -4,6 +4,10 @@ export default {
             let newDate = new Date(date)
             return newDate.toLocaleDateString();
         },
+        formatDateUS(date: Date) {
+            let newDate = new Date(date)
+            return newDate.toLocaleDateString('en-CA', {year: 'numeric', month: '2-digit', day: '2-digit'})
+        },
         formatStatus(status: string, $t: any) {
             switch (status) {
                 case "ACTIVE":

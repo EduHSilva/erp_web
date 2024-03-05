@@ -60,11 +60,6 @@ public class SalesOrdersController {
         return ResponseEntity.ok(service.addItem(dto));
     }
 
-    @PutMapping("/orders/item/{id}")
-    public ResponseEntity<SalesOrderItems> editItem(@PathVariable UUID id, @Valid @RequestBody SalesOrderItemDTO dto) {
-        return ResponseEntity.ok(service.editItem(id, dto));
-    }
-
     @DeleteMapping("/orders/item/{id}")
     public ResponseEntity removeItem(@PathVariable UUID id) {
         return ResponseEntity.ok(service.removeItem(id));

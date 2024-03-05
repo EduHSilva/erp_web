@@ -6,4 +6,5 @@ export default interface ProductOrder {
     orderID: string,
     priceUnit: number,
     quantity: number,
+    id: string
 }

@@ -44,7 +44,7 @@ public class SalesOrdersService {
         order.setDateCreated(new Date());
 
         SalesOrders orderSaved = ordersRepository.save(order);
-        for (SalesOrderItemDTO item : orderDTO.items()) {
+        for (SalesOrderItemDTO item : orderDTO.addItems()) {
             addItem(item, orderSaved);
         }
 
@@ -63,12 +63,29 @@ public class SalesOrdersService {
         return false;
     }
 
+    @Transactional
     public SalesOrders update(UUID id, SalesOrderDTO dto) {
-        if (ordersRepository.existsById(id)) {
-            SalesOrders order = ordersRepository.getReferenceById(id);
-            BeanUtils.copyProperties(dto, order);
-            ordersRepository.save(order);
-            return order;
+        try {
+            if (ordersRepository.existsById(id)) {
+                Optional<SalesOrders> order = ordersRepository.findById(id);
+                if (order.isPresent()) {
+                    BeanUtils.copyProperties(dto, order.get());
+                    ordersRepository.save(order.get());
+                    for (SalesOrderItemDTO item : dto.addItems()) {
+                        addItem(item, order.get());
+                    }
+
+                    for (UUID item : dto.removeItems()) {
+                        removeItem(item);
+                    }
+
+                    return order.get();
+                } else {
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -107,16 +124,5 @@ public class SalesOrdersService {
             return true;
         }
         return false;
-    }
-
-    @Transactional
-    public SalesOrderItems editItem(UUID id, SalesOrderItemDTO dto) {
-        if (itemsRepository.existsById(id)) {
-            SalesOrderItems item = itemsRepository.getReferenceById(id);
-            item.setQuantity(dto.quantity());
-            item.setSubTotal(dto.priceUnit() * dto.quantity());
-            return item;
-        }
-        return null;
     }
 }

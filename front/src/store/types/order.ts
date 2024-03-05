@@ -7,7 +7,9 @@ export default interface Order {
     total: number,
     client: Person,
     seller: Person,
-    items: Array<ProductOrder>
+    items: Array<ProductOrder>,
+    addItems: Array<ProductOrder>,
+    removeItems: Array<String>,
     dateCreated: Date,
     dueDate: Date,
     commission: number

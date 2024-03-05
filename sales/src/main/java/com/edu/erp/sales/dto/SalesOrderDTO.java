@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public record SalesOrderDTO(
         StatusOrder statusOrder,
@@ -21,6 +22,8 @@ public record SalesOrderDTO(
 
         @NotNull SalesPersons client,
 
-        @NotEmpty List<SalesOrderItemDTO> items
+        List<SalesOrderItemDTO> addItems,
+        List<UUID> removeItems
+
 ) {
 }

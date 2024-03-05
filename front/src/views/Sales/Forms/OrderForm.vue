@@ -31,6 +31,8 @@ export default {
       this.text.push("add")
     }
 
+    this.order.addItems = []
+    this.order.removeItems = []
     this.links = useOrderStore().links
   },
   components: {ComponentSidebarInner, ComponentHeader, ComponentToastSuccess, ComponentToastError},
@@ -52,6 +54,10 @@ export default {
   },
   methods: {
     saveOrder() {
+      if (this.order === this.orderOriginal) {
+        return;
+      }
+
       useOrderStore().save(this.order)
     },
     async getClients() {
@@ -82,19 +88,42 @@ export default {
     },
     linkProduct() {
       const product: Product | undefined = this.products.find((product: Product) => product.name === this.productsSearch);
-      if (product) {
+      let add = true
+      this.order.items.forEach(e => {
+        if (e.product.id == product?.id) {
+          add = false
+        }
+      });
+
+      if (product && add) {
         let productOrder = {} as ProductOrder
         productOrder.productID = product.id
         productOrder.product = product;
         productOrder.priceUnit = product.price
         productOrder.quantity = this.quantity
         if (this.edit) {
-          productOrder.productID = this.orderOriginal.id
+          productOrder.id = this.orderOriginal.id
         }
 
+        this.order.addItems.push(productOrder);
         this.order.items.push(productOrder);
         this.updateTotal()
       }
+
+    },
+    removeProduct(id: string) {
+      this.order.items.forEach((e, i) => {
+        if (e.id == id) {
+          this.order.items.splice(i, 1);
+          this.order.removeItems.push(id);
+        }
+      })
+      this.order.addItems.forEach((e, i) => {
+        if (e.id == id) {
+          this.order.addItems.splice(i, 1);
+        }
+      })
+      this.updateTotal();
     },
     updateTotal() {
       let total = 0;
@@ -102,6 +131,10 @@ export default {
         total += e.quantity * e.priceUnit
       })
       this.order.total = total
+    },
+    changeDueDate(e: any) {
+      let data = new Date(e.target.value)
+      this.order.dueDate = new Date(data.getTime() + 4*3600*1000 )
     }
   },
   mixins: [util]
@@ -152,7 +185,7 @@ export default {
             </div>
             <div class="mb-3">
               <label for="dueDate" class="form-label">{{ $t("dueDate") }}</label>
-              <input type="text" class="form-control" v-model="order.dueDate">
+              <input type="date" class="form-control" @change="changeDueDate" :value=formatDateUS(order.dueDate)>
             </div>
           </div>
           <div class="col p-3">
@@ -177,7 +210,7 @@ export default {
             <hr>
             <h4>{{ $t("products") }}</h4>
             <div class="d-flex justify-content-sm-between col-12">
-              <div class="col-6">
+              <div class="col-4">
                 <span class="fw-bold"> {{ $t("name") }}</span>
               </div>
               <div class="col-2">
@@ -189,9 +222,12 @@ export default {
               <div class="col-2">
                 <span class="fw-bold"> {{ $t("subtotal") }}</span>
               </div>
+              <div class="col-2">
+                <span class="fw-bold"> {{ $t("actions") }}</span>
+              </div>
             </div>
             <div v-for="product in order.items" class="d-flex justify-content-sm-between col-12">
-              <div class="col-6">
+              <div class="col-4">
                 <span> {{ product.product.name }}</span>
               </div>
               <div class="col-2">
@@ -202,6 +238,9 @@ export default {
               </div>
               <div class="col-2">
                 <span> {{ product.priceUnit * product.quantity }}</span>
+              </div>
+              <div class="col-2">
+                <a @click="removeProduct(product.id)"> {{ $t("delete") }} </a>
               </div>
             </div>
             <hr>
