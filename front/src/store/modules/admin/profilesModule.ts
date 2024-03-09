@@ -1,8 +1,8 @@
-import {defineStore} from "pinia";
-import type Profile from "../../types/profile"
 import type LinkSidebar from "@/store/types/linkSidebar";
-import util from "../../../mixins/util"
-import {axiosAdminInstance} from "../../config/axios.config";
+import { defineStore } from "pinia";
+import util from "../../../mixins/util";
+import { axiosAdminInstance } from "../../config/axios.config";
+import type Profile from "../../types/profile";
 
 
 interface State {
@@ -45,7 +45,7 @@ export const useProfileStore = defineStore('profile', {
         },
         async getOne(id: string) {
             try {
-                let response = await axiosAdminInstance(`admin/profile/${id}`)
+                const response = await axiosAdminInstance(`admin/profile/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();
@@ -57,7 +57,7 @@ export const useProfileStore = defineStore('profile', {
                 if (index == -1) {
                     size = `size=2147483647`
                 }
-                let response = await axiosAdminInstance(`admin/profiles?page=${index}&sort=dateCreated,desc&${size}`)
+                const response = await axiosAdminInstance(`admin/profiles?page=${index}&sort=dateCreated,desc&${size}`)
                 this.profiles = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)

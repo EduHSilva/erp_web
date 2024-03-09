@@ -1,8 +1,8 @@
-import {defineStore} from "pinia";
 import type LinkSidebar from "@/store/types/linkSidebar";
-import util from "../../../mixins/util"
-import {axiosSalesInstance} from "../../config/axios.config";
 import type Product from "@/store/types/product";
+import { defineStore } from "pinia";
+import util from "../../../mixins/util";
+import { axiosSalesInstance } from "../../config/axios.config";
 
 interface State {
     productList: Product[],
@@ -34,7 +34,7 @@ export const useProductStore = defineStore('product', {
     actions: {
         async get(index: number) {
             try {
-                let response = await axiosSalesInstance(`sales/products?page=${index}&sort=dateCreated,asc`)
+                const response = await axiosSalesInstance(`sales/products?page=${index}&sort=dateCreated,asc`)
                 this.productList = response.data.content
                 this.totalPages = response.data.totalPages
                 this.page = response.data.number
@@ -54,7 +54,7 @@ export const useProductStore = defineStore('product', {
         },
         async getOne(id: string) {
             try {
-                let response = await axiosSalesInstance(`sales/product/${id}`)
+                const response = await axiosSalesInstance(`sales/product/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();

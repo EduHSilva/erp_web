@@ -1,8 +1,8 @@
-import {defineStore} from "pinia";
-import type User from "../../types/user"
 import type LinkSidebar from "@/store/types/linkSidebar";
-import util from "../../../mixins/util"
-import {axiosAdminInstance} from "../../config/axios.config";
+import { defineStore } from "pinia";
+import util from "../../../mixins/util";
+import { axiosAdminInstance } from "../../config/axios.config";
+import type User from "../../types/user";
 
 interface State {
     userList: User[],
@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
     actions: {
         async get(index: number) {
             try {
-                let response = await axiosAdminInstance(`admin/users?page=${index}&sort=dateCreated,asc`)
+                const response = await axiosAdminInstance(`admin/users?page=${index}&sort=dateCreated,asc`)
                 this.userList = response.data.content
                 this.totalPages = response.data.totalPages
                 this.page = response.data.number
@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', {
         },
         async getOne(id: string) {
             try {
-                let response = await axiosAdminInstance(`admin/user/${id}`)
+                const response = await axiosAdminInstance(`admin/user/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();

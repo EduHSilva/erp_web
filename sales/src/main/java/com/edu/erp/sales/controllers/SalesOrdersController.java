@@ -36,7 +36,7 @@ public class SalesOrdersController {
     }
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<SalesOrders> getOrder(@PathVariable UUID id) {
+    public ResponseEntity<SalesOrders> getOrder(@PathVariable Long id) {
         return ResponseEntity.ok(service.findOne(id));
     }
 
@@ -46,12 +46,12 @@ public class SalesOrdersController {
     }
 
     @DeleteMapping("/order/{id}")
-    public ResponseEntity delete(@PathVariable UUID id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         return ResponseEntity.ok(service.delete(id));
     }
 
     @PutMapping("/order/{id}")
-    public ResponseEntity<SalesOrders> update(@PathVariable UUID id, @Valid @RequestBody SalesOrderDTO dto) {
+    public ResponseEntity<SalesOrders> update(@PathVariable Long id, @Valid @RequestBody SalesOrderDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 

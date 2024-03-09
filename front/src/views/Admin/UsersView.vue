@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import {useUserStore} from "@/store/modules/admin/userModule";
-import ComponentPagination from "@/components/ComponentPagination.vue";
 import ComponentHeader from "@/components/ComponentHeader.vue";
-import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+import ComponentPagination from "@/components/ComponentPagination.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
-import ComponentTable from "@/components/tables/ComponentTable.vue";
+import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 import ComponentActionsTable from "@/components/tables/ComponentActionsTable.vue";
+import ComponentTable from "@/components/tables/ComponentTable.vue";
+import { useUserStore } from "@/store/modules/admin/userModule";
 
 const store = useUserStore()
 store.get(0)
@@ -47,20 +47,20 @@ export default  {
       </div>
       <div class="card-body">
         <ComponentTable :table-header="tableHeader" :table-data="store.userList">
-          <tr v-for="user in store.userList">
+          <tr v-for="user in store.userList" :key="user.id">
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td><span class="badge" :class="user.status == 'ACTIVE' ? 'text-bg-success' : 'text-bg-danger'">
             {{ formatStatus(user.status, $t) }}
           </span></td>
             <td>{{ user.profile != null ? user.profile.name : "" }}</td>
-            <td>{{ formatDate(user.dateCreated) }}</td>
+            <td>{{ $d(Date.parse(user.dateCreated.toString())) }}</td>
             <ComponentActionsTable :modal="false" @edit="openEdit" @delete="openConfirmDeleteModal" :data="user"/>
           </tr>
         </ComponentTable>
       </div>
       <div class="card-footer">
-        <ComponentPagination :total-pages="store.totalPages" :page="store.page"/>
+        <ComponentPagination :total-pages="store.totalPages" :page="store.page" back="admin"/>
       </div>
     </div>
   </main>

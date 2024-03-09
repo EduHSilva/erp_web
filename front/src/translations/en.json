@@ -67,5 +67,6 @@
   "dueDate": "Due Date",
   "seller": "Seller",
   "order": "Order",
-  "commission": "Comission"
+  "commission": "Comission",
+  "pendent": "Pendent"
 }

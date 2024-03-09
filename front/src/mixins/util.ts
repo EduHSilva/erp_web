@@ -1,13 +1,5 @@
 export default {
     methods: {
-        formatDate(date: Date) {
-            let newDate = new Date(date)
-            return newDate.toLocaleDateString();
-        },
-        formatDateUS(date: Date) {
-            let newDate = new Date(date)
-            return newDate.toLocaleDateString('en-CA', {year: 'numeric', month: '2-digit', day: '2-digit'})
-        },
         formatStatus(status: string, $t: any) {
             switch (status) {
                 case "ACTIVE":
@@ -19,7 +11,7 @@ export default {
             }
         },
         showToastError() {
-            let toast = document.getElementById("toast-error");
+            const toast = document.getElementById("toast-error");
             if (toast !== null) {
                 toast.classList.add("show");
                 setTimeout(function () {
@@ -28,7 +20,7 @@ export default {
             }
         },
         showToastSuccess(callback: Function | null) {
-            let toast = document.getElementById("toast-success");
+            const toast = document.getElementById("toast-success");
             if (toast !== null) {
                 toast.classList.add("show");
 

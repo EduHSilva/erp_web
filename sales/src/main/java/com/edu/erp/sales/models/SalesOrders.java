@@ -1,8 +1,6 @@
 package com.edu.erp.sales.models;
 
-import com.edu.erp.sales.enums.Status;
 import com.edu.erp.sales.enums.StatusOrder;
-import com.edu.erp.sales.enums.TypePerson;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +10,6 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,8 +20,8 @@ import java.util.UUID;
 public class SalesOrders implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Date dateCreated;
 

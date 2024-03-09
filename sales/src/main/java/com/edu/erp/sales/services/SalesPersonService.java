@@ -81,6 +81,7 @@ public class SalesPersonService {
             BeanUtils.copyProperties(dto, seller);
             seller.setStatus(active ? Status.ACTIVE : Status.INACTIVE);
             seller.setType(TypePerson.SELLER);
+            seller.setDateCreated(new Date());
             return repository.save(seller);
         } else {
             return null;

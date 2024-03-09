@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import ComponentSidebar from "@/components/sidebar/ComponentSidebar.vue";
-import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentHome from "@/components/ComponentHome.vue";
 </script>
 

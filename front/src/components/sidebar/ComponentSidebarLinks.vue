@@ -13,7 +13,7 @@
 
 <template>
   <div class="py-2 col-12 row">
-    <router-link v-for="link in links" :to="link.link" class="px-1 py-1 rounded-3 col-12 justify-content-center d-flex">
+    <router-link v-for="link, i in links" :to="link.link" :key="i" class="px-1 py-1 rounded-3 col-12 justify-content-center d-flex">
       <div class="col-9 row justify-content-center align-items-center">
         <div class="col-2 d-flex">
         </div>

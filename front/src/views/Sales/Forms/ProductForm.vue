@@ -1,11 +1,11 @@
 <script lang="ts">
-import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
-import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
-import type Product from "@/store/types/product";
+import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+import { useProductStore } from "@/store/modules/sales/productModule";
 import type LinkSidebar from "@/store/types/linkSidebar";
-import {useProductStore} from "@/store/modules/sales/productModule";
+import type Product from "@/store/types/product";
 
 export default {
   async created() {

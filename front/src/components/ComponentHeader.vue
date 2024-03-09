@@ -1,15 +1,12 @@
 <script lang="ts">
-import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
-
 export default {
-  components: {ComponentSidebarInner},
   props: {
     inner: {
       type: Boolean,
       default: false
     },
     text: {
-      type: Array as () => String[],
+      type: Array<String>,
       required: false,
     }
   },
@@ -27,8 +24,8 @@ export default {
       </div>
     </div>
     <div v-if="inner" class="fw-bold d-flex align-items-md-center h-100">
-      <div v-for="t in text" class="d-flex align-items-md-center justify-content-center fw-bold">
-        <span class="header-separator">&nbsp</span>
+      <div v-for="t, i in text" :key="i" class="d-flex align-items-md-center justify-content-center fw-bold">
+        <span class="header-separator">&nbsp;</span>
         {{$t(t.toString())}}
       </div>
     </div>

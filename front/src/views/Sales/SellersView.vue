@@ -1,11 +1,9 @@
 <script setup lang="ts">
-  import {usePersonStore} from "@/store/modules/sales/personModule";
-  import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
   import ComponentHeader from "@/components/ComponentHeader.vue";
-  import ComponentPagination from "@/components/ComponentPagination.vue";
-  import ComponentTable from "@/components/tables/ComponentTable.vue";
-  import ComponentActionsTable from "@/components/tables/ComponentActionsTable.vue";
-  import ModalConfirm from "@/components/modais/ModalConfirm.vue";
+import ComponentPagination from "@/components/ComponentPagination.vue";
+import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+import ComponentTable from "@/components/tables/ComponentTable.vue";
+import { usePersonStore } from "@/store/modules/sales/personModule";
 
   const store = usePersonStore();
   store.getSellers(0);
@@ -37,18 +35,18 @@
         </div>
         <div class="card-body">
          <ComponentTable :table-header="tableHeader" :table-data="store.sellersList">
-           <tr v-for="person in store.sellersList">
+           <tr v-for="person in store.sellersList" :key="person.id">
              <td>{{ person.name }}</td>
              <td>{{ person.email }}</td>
              <td><span class="badge" :class="person.status == 'ACTIVE' ? 'text-bg-success' : 'text-bg-danger'">
             {{ formatStatus(person.status, $t) }}
           </span></td>
-             <td>{{ formatDate(person.dateCreated) }}</td>
+             <td>{{ $d(Date.parse(person.dateCreated.toString())) }}</td>
            </tr>
          </ComponentTable>
         </div>
         <div class="card-footer">
-          <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>
+          <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page" back="sales"/>
         </div>
       </div>
     </main>

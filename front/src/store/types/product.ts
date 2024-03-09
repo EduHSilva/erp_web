@@ -6,4 +6,5 @@ export default interface Product {
     price: number,
     stock: number,
     status: string
+    dateCreated: Date
 }

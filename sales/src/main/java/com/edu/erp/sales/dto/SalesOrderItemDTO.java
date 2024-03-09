@@ -10,7 +10,7 @@ public record SalesOrderItemDTO(
         @NotNull @Positive Integer quantity,
         @NotNull @Positive Double priceUnit,
         @NotNull UUID productID,
-        UUID orderID
+        Long orderID
 
 ) {
 }

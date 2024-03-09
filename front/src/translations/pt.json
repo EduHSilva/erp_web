@@ -67,5 +67,6 @@
   "dueDate": "Data entrega",
   "seller": "Vendedor",
   "order": "Pedido",
-  "commission": "Comissão"
+  "commission": "Comissão",
+  "pendent": "Pendente"
 }

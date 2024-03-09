@@ -1,6 +1,6 @@
 <script lang="ts">
 import ComponentSidebarLinks from "@/components/sidebar/ComponentSidebarLinks.vue";
-import * as Module from "module";
+import type Module from "@/store/types/module";
 
 export default {
   components: {ComponentSidebarLinks},

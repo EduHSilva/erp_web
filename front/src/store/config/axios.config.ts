@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let token = localStorage.getItem("authToken")
+const token = localStorage.getItem("authToken")
 
 const axiosAdminInstance = axios.create({
     baseURL: `${import.meta.env.VITE_ADMIN_URL}`,
@@ -16,4 +16,5 @@ const axiosSalesInstance = axios.create({
     }
 });
 
-export {axiosAdminInstance, axiosSalesInstance};
+export { axiosAdminInstance, axiosSalesInstance };
+

@@ -1,19 +1,18 @@
-<script lang="ts">
-import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+<script lang="ts" setup>
 import ComponentHeader from "@/components/ComponentHeader.vue";
-import {useProfileStore} from "@/store/modules/admin/profilesModule";
-import util from "@/mixins/util";
-import type Profile from "@/store/types/profile";
-import type LinkSidebar from "@/store/types/linkSidebar";
-import {useUserStore} from "@/store/modules/admin/userModule";
-import type User from "@/store/types/user";
-import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
-import {usePersonStore} from "@/store/modules/sales/personModule";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+</script>
+<script lang="ts">
+import util from "@/mixins/util";
+import { usePersonStore } from "@/store/modules/sales/personModule";
+import type LinkSidebar from "@/store/types/linkSidebar";
 import type Person from "@/store/types/person";
-import type City from "@/store/types/city";
+import { vMaska } from "maska";
 
 export default {
+  directives: { maska: vMaska },
   components: {ComponentToastError, ComponentToastSuccess, ComponentHeader, ComponentSidebarInner},
   async created() {
     let id: string = this.$route.params.id as string
@@ -116,22 +115,22 @@ export default {
             <div class="mb-3" v-if="person.type == 'CLIENT_PF'">
               <label for="cpf" class="form-label"> {{ $t("cpf") }} </label>
               <input class="form-control input" name="cpf" :placeholder="$t('cpf')"
-                     v-model="person.cpf_cnpj" required>
+                     v-model="person.cpf_cnpj" required v-maska data-maska="['###.###.###-##', '##.###.###/####-##']"> 
             </div>
             <div class="mb-3" v-else>
               <label for="cpf" class="form-label"> {{ $t("cnpj") }} </label>
               <input class="form-control input" name="cpf" :placeholder="$t('cnpj')"
-                     v-model="person.cpf_cnpj" required>
+                     v-model="person.cpf_cnpj" required  v-maska data-maska="['###.###.###-##', '##.###.###/####-##']">
             </div>
             <div class="mb-3">
               <label for="name" class="form-label"> {{ $t("phone") }} </label>
-              <input class="form-control input" name="phone" :placeholder="$t('phone')"
-                     v-model="person.phone">
+              <input class="form-control input" name="phone" :placeholder="$t('phone')" 
+                     v-model="person.phone"  v-maska data-maska="['(##) ####-####', '(##) #####-####']">
             </div>
             <div class="mb-3">
               <label for="dateCreated" class="form-label"> {{ $t("dateCreated") }} </label>
               <input class="form-control input" id="dateCreated" name="dateCreated" :placeholder="$t('dateCreated')"
-                     disabled :value="formatDate(person.dateCreated)">
+                     disabled :value="$d(person.dateCreated)">
             </div>
           </div>
           <div class="col">
@@ -149,7 +148,7 @@ export default {
                 <input class="form-control" list="datalistOptions" v-model="citySearch" @keydown="getCities"
                        placeholder="Type to search...">
                 <datalist id="datalistOptions">
-                  <option v-for="city in cities" :value="city.name" :data-value="city.id"/>
+                  <option v-for="city in cities" :value="city.name" :data-value="city.id" :key="city.id"/>
                 </datalist>
               </div>
               <div class="col-2">

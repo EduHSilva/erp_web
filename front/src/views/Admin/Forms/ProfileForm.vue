@@ -1,14 +1,17 @@
-<script lang="ts">
-import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+<script lang="ts" setup>
 import ComponentHeader from "@/components/ComponentHeader.vue";
-import {useProfileStore} from "@/store/modules/admin/profilesModule";
-import util from "@/mixins/util";
-import {useModulesStore} from "@/store/modules/admin/modulesModule";
-import type Profile from "@/store/types/profile";
-import type Module from "@/store/types/module";
-import type LinkSidebar from "@/store/types/linkSidebar";
-import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
+
 import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+</script>
+<script lang="ts">
+import util from "@/mixins/util";
+import { useModulesStore } from "@/store/modules/admin/modulesModule";
+import { useProfileStore } from "@/store/modules/admin/profilesModule";
+import type LinkSidebar from "@/store/types/linkSidebar";
+import type Module from "@/store/types/module";
+import type Profile from "@/store/types/profile";
 
 export default {
   components: {ComponentToastError, ComponentToastSuccess, ComponentHeader, ComponentSidebarInner},
@@ -85,7 +88,7 @@ export default {
             <div class="mb-3">
               <label for="dateCreated" class="form-label"> {{ $t("dateCreated") }} </label>
               <input class="form-control input" id="dateCreated" name="dateCreated" :placeholder="$t('dateCreated')"
-                     disabled :value="formatDate(profile.dateCreated)">
+                     disabled :value="$d(profile.dateCreated)">
             </div>
           </div>
           <div class="col p-3 d-flex flex-column" v-if="edit && modules.length > 1">
@@ -94,17 +97,17 @@ export default {
               <input class="form-control" list="datalistOptions" v-model="selectedModule"
                      placeholder="Type to search...">
               <datalist id="datalistOptions">
-                <option v-for="module in modules" :value="module.name" :data-value="module.id"/>
+                <option v-for="module in modules" :key="module.id" :value="module.name" :data-value="module.id"/>
               </datalist>
               <button class="btn-primary mt-2" @click.prevent="linkModule">{{ $t("link") }}</button>
             </div>
             <hr>
             <h4>{{ $t("links") }}</h4>
-            <span v-for="m in profile.adminModules"> {{ m.name }}</span>
+            <span v-for="module in profile.adminModules" :key="module.id"> {{ module.name }}</span>
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn btn-secondary" @click="$router.back">{{ $t("back") }}</button>
+          <button class="btn btn-secondary" @click="$router.push('profiles')">{{ $t("back") }}</button>
           <button class="btn-primary" type="submit">
             {{ $t("save") }}
           </button>

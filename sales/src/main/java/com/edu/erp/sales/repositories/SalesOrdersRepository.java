@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface SalesOrdersRepository extends JpaRepository<SalesOrders, UUID> {
+public interface SalesOrdersRepository extends JpaRepository<SalesOrders, Long> {
     Page<SalesOrders> findByDateDeletionIsNull(Pageable pageable);
 }

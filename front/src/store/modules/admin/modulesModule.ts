@@ -1,8 +1,8 @@
-import {defineStore} from "pinia";
-import type Module from "../../types/module"
-import {axiosAdminInstance} from "../../config/axios.config";
 import type LinkSidebar from "@/store/types/linkSidebar";
-import util from "../../../mixins/util"
+import { defineStore } from "pinia";
+import util from "../../../mixins/util";
+import { axiosAdminInstance } from "../../config/axios.config";
+import type Module from "../../types/module";
 
 interface State {
     modules: Module[],
@@ -34,7 +34,7 @@ export const useModulesStore = defineStore('module', {
                 size = `size=2147483647`
             }
             try {
-                let response = await axiosAdminInstance.get(`admin/modules?page=${index}&sort=dateCreated,asc&${size}`)
+                const response = await axiosAdminInstance.get(`admin/modules?page=${index}&sort=dateCreated,asc&${size}`)
                 this.modules = response.data.content
                 this.totalPages = parseInt(response.data.totalPages)
                 this.page = parseInt(response.data.number)

@@ -11,7 +11,6 @@ import ComponentHome from "@/components/ComponentHome.vue";
 
       <div class="card-body d-flex justify-content-around">
 
-
         <router-link to="/shop/cost" class="card-item bg-light">
           <div class="card-inner">
             <h5 class="card-title"> {{ $t("costCenter") }}</h5>

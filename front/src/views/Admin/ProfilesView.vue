@@ -3,13 +3,12 @@ import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
 
 import ComponentPagination from "@/components/ComponentPagination.vue";
-import DefaultTable from "@/components/tables/ComponentDefaultTable.vue";
-import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
-import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
 import ModalConfirm from "@/components/modais/ModalConfirm.vue";
-import {useProfileStore} from "@/store/modules/admin/profilesModule";
 import ActionsTableComponent from "@/components/tables/ComponentActionsTable.vue";
 import ComponentTable from "@/components/tables/ComponentTable.vue";
+import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+import { useProfileStore } from "@/store/modules/admin/profilesModule";
 
 const store = useProfileStore()
 store.get(0)
@@ -57,15 +56,15 @@ export default {
       </div>
       <div class="card-body">
         <ComponentTable :table-header="tableHeader" :table-data="store.profiles">
-          <tr v-for="d in store.profiles">
-            <td>{{ d.name }}</td>
-            <td>{{ formatDate(d.dateCreated) }}</td>
-            <ActionsTableComponent :modal="false" :data="d" @edit="openEdit" @delete="openConfirmDeleteModal"/>
+          <tr v-for="profile in store.profiles" :key="profile.id">
+            <td>{{ profile.name }}</td>
+            <td>{{ $d(Date.parse(profile.dateCreated.toString())) }}</td>
+            <ActionsTableComponent :modal="false" :data="profile" @edit="openEdit" @delete="openConfirmDeleteModal"/>
           </tr>
         </ComponentTable>
       </div>
       <div class="card-footer">
-        <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page"/>
+        <ComponentPagination @changePagination="store.get" :total-pages="store.totalPages" :page="store.page" back="admin"/>
       </div>
     </div>
   </main>

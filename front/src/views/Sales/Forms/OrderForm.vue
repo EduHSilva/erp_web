@@ -1,17 +1,19 @@
-<script lang="ts">
-import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
-import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+<script lang="ts" setup>
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import ComponentSidebarInner from "@/components/sidebar/ComponentSidebarInner.vue";
-import type Product from "@/store/types/product";
-import type LinkSidebar from "@/store/types/linkSidebar";
-import {useProductStore} from "@/store/modules/sales/productModule";
-import {useOrderStore} from "@/store/modules/sales/ordersModule";
-import type Order from "@/store/types/order";
-import {usePersonStore} from "@/store/modules/sales/personModule";
-import type Person from "@/store/types/person";
-import type ProductOrder from "@/store/types/productOrder";
+import ComponentToastError from "@/components/toasts/ComponentToastError.vue";
+import ComponentToastSuccess from "@/components/toasts/ComponentToastSuccess.vue";
+</script>
+<script lang="ts">
 import util from "@/mixins/util";
+import { useOrderStore } from "@/store/modules/sales/ordersModule";
+import { usePersonStore } from "@/store/modules/sales/personModule";
+import { useProductStore } from "@/store/modules/sales/productModule";
+import type LinkSidebar from "@/store/types/linkSidebar";
+import type Order from "@/store/types/order";
+import type Person from "@/store/types/person";
+import type Product from "@/store/types/product";
+import type ProductOrder from "@/store/types/productOrder";
 
 export default {
   async created() {
@@ -23,7 +25,7 @@ export default {
       this.edit = true
       this.sellerSearch = this.order.seller.name
       this.clientSearch = this.order.client.name
-      this.products = this.order.items
+      this.productsOrder = this.order.items
     } else {
       this.order.dateCreated = new Date()
       this.order.items = []
@@ -43,9 +45,10 @@ export default {
       order: {} as Order,
       edit: false,
       links: Array<LinkSidebar>(),
-      clients: Array<Person>,
-      sellers: Array<Person>,
-      products: Array<Product>,
+      clients: Array<Person>(),
+      sellers: Array<Person>(),
+      productsOrder: Array<ProductOrder>(),
+      products: Array<Product>(),
       clientSearch: "",
       productsSearch: "",
       sellerSearch: "",
@@ -164,7 +167,7 @@ export default {
               <input class="form-control" list="datalistOptions" v-model="clientSearch" @keydown="getClients"
                      placeholder="Type to search...">
               <datalist id="datalistOptions">
-                <option v-for="client in clients" :value="client.name" :data-value="client.id"/>
+                <option v-for="client in clients" :value="client.name" :data-value="client.id" :key="client.id"/>
               </datalist>
             </div>
             <div class="mb-3">
@@ -172,7 +175,7 @@ export default {
               <input class="form-control" list="dataSellers" v-model="sellerSearch" @keydown="getSellers"
                      placeholder="Type to search...">
               <datalist id="dataSellers">
-                <option v-for="seller in sellers" :value="seller.name" :data-value="seller.id"/>
+                <option v-for="seller in sellers" :value="seller.name" :data-value="seller.id" :key="seller.id"/>
               </datalist>
             </div>
             <div class="mb-3">
@@ -181,11 +184,11 @@ export default {
             </div>
             <div class="mb-3">
               <label for="date" class="form-label">{{ $t("dateCreated") }}</label>
-              <input type="text" disabled class="form-control" :value="formatDate(order.dateCreated)">
+              <input type="text" disabled class="form-control" :value="$d(order.dateCreated)">
             </div>
             <div class="mb-3">
               <label for="dueDate" class="form-label">{{ $t("dueDate") }}</label>
-              <input type="date" class="form-control" @change="changeDueDate" :value=formatDateUS(order.dueDate)>
+              <input type="date" placeholder="dd-mm-yyyy" class="form-control" v-model="order.dueDate" >
             </div>
           </div>
           <div class="col p-3">
@@ -195,7 +198,7 @@ export default {
                 <input class="form-control" list="datalistProduct" v-model="productsSearch" @keydown="getProducts"
                        placeholder="Type to search...">
                 <datalist id="datalistProduct">
-                  <option v-for="product in products" :value="product.name" :data-value="product.id"/>
+                  <option v-for="product in products" :key="product.id" :value="product.name" :data-value="product.id"/>
                 </datalist>
               </div>
               <div class="mb-3">
@@ -226,7 +229,7 @@ export default {
                 <span class="fw-bold"> {{ $t("actions") }}</span>
               </div>
             </div>
-            <div v-for="product in order.items" class="d-flex justify-content-sm-between col-12">
+            <div v-for="product in order.items" :key="product.id" class="d-flex justify-content-sm-between col-12">
               <div class="col-4">
                 <span> {{ product.product.name }}</span>
               </div>

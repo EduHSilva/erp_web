@@ -35,6 +35,6 @@ public class AuthController {
         var auth = authenticationManager.authenticate(userNamePassword);
         var token = tokenService.generateToken((AdminUsers) auth.getPrincipal());
         AdminUsers user = repository.findByEmail(dto.email());
-        return ResponseEntity.ok(new LoginResponseDTO(token, user.getUsername(), user.getProfile().getAdminModules()));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getUsername(), user.getProfile().getAdminModules(), user.getLanguage()));
     }
 }

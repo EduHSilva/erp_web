@@ -1,10 +1,9 @@
-import {defineStore} from "pinia";
-import type User from "../../types/user"
-import type LinkSidebar from "@/store/types/linkSidebar";
-import util from "../../../mixins/util"
-import {axiosSalesInstance} from "../../config/axios.config";
-import type Person from "@/store/types/person";
 import type City from "@/store/types/city";
+import type LinkSidebar from "@/store/types/linkSidebar";
+import type Person from "@/store/types/person";
+import { defineStore } from "pinia";
+import util from "../../../mixins/util";
+import { axiosSalesInstance } from "../../config/axios.config";
 
 interface State {
     clientList: Person[],
@@ -48,7 +47,7 @@ export const usePersonStore = defineStore('client', {
     actions: {
         async get(index: number) {
             try {
-                let response = await axiosSalesInstance(`sales/persons/clients?page=${index}&sort=dateCreated,asc`)
+                const response = await axiosSalesInstance(`sales/persons/clients?page=${index}&sort=dateCreated,asc`)
                 this.clientList = response.data.content
                 this.totalPages = response.data.totalPages
                 this.page = response.data.number
@@ -58,7 +57,7 @@ export const usePersonStore = defineStore('client', {
         },
         async getSellers(index: number) {
             try {
-                let response = await axiosSalesInstance(`sales/persons/sellers?page=${index}&sort=dateCreated,asc`)
+                const response = await axiosSalesInstance(`sales/persons/sellers?page=${index}&sort=dateCreated,asc`)
                 this.sellersList = response.data.content
                 this.totalPages = response.data.totalPages
                 this.page = response.data.number
@@ -68,7 +67,7 @@ export const usePersonStore = defineStore('client', {
         },
         async getCities(city: string) {
             try {
-                let response = await axiosSalesInstance(`sales/cities?name=${city}`)
+                const response = await axiosSalesInstance(`sales/cities?name=${city}`)
                 this.cities = response.data.content
             } catch (e) {
                 util.methods.showToastError();
@@ -86,7 +85,7 @@ export const usePersonStore = defineStore('client', {
         },
         async getOne(id: string) {
             try {
-                let response = await axiosSalesInstance(`sales/persons/${id}`)
+                const response = await axiosSalesInstance(`sales/persons/${id}`)
                 return response.data
             } catch (ex) {
                 util.methods.showToastError();

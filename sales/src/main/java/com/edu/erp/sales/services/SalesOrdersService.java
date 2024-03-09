@@ -51,7 +51,7 @@ public class SalesOrdersService {
         return orderSaved;
     }
 
-    public boolean delete(UUID id) {
+    public boolean delete(Long id) {
         if (ordersRepository.existsById(id)) {
             Optional<SalesOrders> product = ordersRepository.findById(id);
             if (product.isPresent()) {
@@ -64,7 +64,7 @@ public class SalesOrdersService {
     }
 
     @Transactional
-    public SalesOrders update(UUID id, SalesOrderDTO dto) {
+    public SalesOrders update(Long id, SalesOrderDTO dto) {
         try {
             if (ordersRepository.existsById(id)) {
                 Optional<SalesOrders> order = ordersRepository.findById(id);
@@ -90,7 +90,7 @@ public class SalesOrdersService {
         return null;
     }
 
-    public SalesOrders findOne(UUID id) {
+    public SalesOrders findOne(Long id) {
         Optional<SalesOrders> order = ordersRepository.findById(id);
         return order.orElse(null);
     }
@@ -103,7 +103,7 @@ public class SalesOrdersService {
     @Transactional
     public SalesOrderItems addItem(SalesOrderItemDTO dto, SalesOrders order) {
         SalesOrderItems item = new SalesOrderItems();
-        UUID orderID = order == null ? dto.orderID() : order.getId();
+        Long orderID = order == null ? dto.orderID() : order.getId();
         if (productRepository.existsById(dto.productID()) && ordersRepository.existsById(orderID)) {
             item.setProduct(productRepository.getReferenceById(dto.productID()));
             item.setOrder(ordersRepository.getReferenceById(orderID));

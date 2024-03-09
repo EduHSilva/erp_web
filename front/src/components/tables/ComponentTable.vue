@@ -1,11 +1,15 @@
 <script lang="ts">
-import ComponentActionsTable from "@/components/tables/ComponentActionsTable.vue";
 
 export default {
-  components: {ComponentActionsTable},
   props: {
-    tableHeader: Array<String>,
-    tableData: Array<Object>
+    tableHeader: {
+      type: Array<string>,
+      required: true
+    },
+    tableData: {
+      type: Array<Object>,
+      required: true
+    } 
   }
 }
 </script>
@@ -16,7 +20,7 @@ export default {
       <table class="table">
         <thead class="table-header">
         <tr>
-          <th scope="col" v-for="i in tableHeader">{{ $t(i) }}</th>
+          <th scope="col" v-for="i, k in tableHeader" :key="k">{{ $t(i) }}</th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +40,10 @@ export default {
 <style scoped>
 .container {
   margin-top: 50px;
+}
+
+.table-responsive {
+  min-height: 200px;
 }
 
 th {
